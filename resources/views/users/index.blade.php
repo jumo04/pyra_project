@@ -1,0 +1,79 @@
+@extends('layouts.app', ['activePage' => 'user-management', 'titlePage' => __('Manejo de Usuarios')])
+
+@section('content')
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title ">Usuarios: </h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+               <!--  <div class="col-12 text-right">
+                  <a href="#" class="btn btn-sm btn-primary"></a>
+                </div> -->
+              </div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <tr>
+                    <th>
+                      No
+                    </th>
+                    <th>
+                      Nombre
+                    </th>
+                    <th>
+                      Cedula
+                    </th>
+                    <th>
+                      Roles
+                    </th>
+                    <th class="text-right">
+                      Action
+                    </th>
+                  </tr></thead>
+                  <tbody>
+                  @foreach($users as $key => $value)
+                    <tr>
+                      <td>
+                        {{ ++$i}}
+                      </td>
+                      <td>
+                      {{ $value-> name }}
+                      </td>
+                      <td>
+                      {{ $value-> total_count }}
+                      </td>
+                      <td>
+                        @if(!empty($value->getRoleNames()))
+                          @foreach($value->getRoleNames() as $v)
+                            <label class="badge badge-success">{{ $v }}</label>
+                          @endforeach
+                        @endif
+                      </td>
+                      <td>
+                      <td>
+                        <a class="btn btn-primary" href="{{ route('users.edit',$value->id) }}">Edit</a>
+                        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $value->id],'style'=>'display:inline']) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::close() !!}
+                        </td>
+                      </td>
+                    </tr>
+                @endforeach
+                  </tbody>
+                </table>
+                {!! $users->render() !!}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
