@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
@@ -46,25 +47,34 @@ class TicketController extends Controller
 
         // Form validation
         $this->validate($request, [
+            
+        ]);
+
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'num',
             'lottery_id' => 'required',
             'place_id' => 'required',
-            'total'=>'required'
+            'total'=>'required',
         ]);
 
-        if(!ifBlock($request->input('num'))){
-            $this->storeNumber($request);
-        }else {
-            
-        }
+        $val = $request->input('num');
+        $validator->after(function ($validator, $val) {
+            if ($this->ifBlock($val)) {
+                if ($validator->fails()) {
+                    return back()->withErrors($validator->errors());
+                }
+            }
+        });
+
+
 
         $this->storeNumber($request);
         
 
         // Store data in database
         Ticket::create($request->all());
-       
         
         // 
         return back()->with('bingo');
@@ -92,18 +102,15 @@ class TicketController extends Controller
     }
 
     public function ifBlock($request){
-
         $numbers = DB::table('numbers')->pluck('num')->toArray();
-
         foreach ($request as $value) {
-
             if (!in_array($value, $numbers)) {
 
             } else {
                 $number = Number::where('num', $value)->get()->first();
                 $prove = $number['block'];
                 if($prove == 1){
-                    return back()->with('error');
+                    return false;
                 }else {
                     return true;
                 }

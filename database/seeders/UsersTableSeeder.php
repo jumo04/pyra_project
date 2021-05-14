@@ -28,9 +28,10 @@ class UsersTableSeeder extends Seeder
             'updated_at' => now()
         ]);
 
-        /* $role = Role::create(['name' => 'Admin']);
+        $role = Role::create(['name' => 'Admin']);
         $permissions = Permission::pluck('id','id')->all();
         $role->syncPermissions($permissions);
-        $user->assignRole([$role->id]); */
+        $user->assignRole([$role->id]); 
     }
+    
 }

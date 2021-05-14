@@ -19,26 +19,19 @@ class Ticket extends Model
 
     public $fillable = ['name', 'num', 'place_id', 'lottery_id', 'total'];
 
+    
     public function setNumAttribute($value)
-
-
     {
         $this->attributes['num'] = json_encode($value);
     }
+
     /**
-
      * Get the categories
-
      *
-
      */
-
     public function getNumAttribute($value)
-
     {
-
         return $this->attributes['num'] = json_decode($value);
-
     }
 
 }

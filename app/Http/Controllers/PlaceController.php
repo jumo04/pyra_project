@@ -10,7 +10,7 @@ class PlaceController extends Controller
     //
     public function createForm(Request $request) {
         return view('place');
-      }
+    }
 
     public function PlaceForm(Request $request) {
 

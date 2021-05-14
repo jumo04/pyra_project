@@ -51,7 +51,7 @@ class UserController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'cedula' => 'numeric|required|digits_between:6,11',
+            'cedula' => 'numeric|required|between:7,10|unique:users,cedula',
             'email' => 'required|email|unique:users,email',
             'place' => 'required',
             'password' => 'required|same:confirm-password',
@@ -64,7 +64,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')->with('success','User created successfully');
+        return redirect()->route('users.index')->with('success','User creado exitosamente');
     }
 
     /**
@@ -108,7 +108,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'cedula' => 'numeric|required|digits_between:6,11',
+            'cedula' => 'numeric|required|between:7,10|unique:users,cedula',
             'place' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
@@ -126,10 +126,8 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
         $user->assignRole($request->input('roles'));
-        return redirect()->route('users.index')->with('success','User updated successfully');
+        return redirect()->route('users.index')->with('success','Usuario actualizado');
     }
-
-    
 
     /**
      * Remove the specified resource from storage.
@@ -137,11 +135,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
+     
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')->with('success','User deleted successfully');
+        return redirect()->route('users.index')->with('success','Usuario eliminado satisfactoriamente');
     }
-
 
 }

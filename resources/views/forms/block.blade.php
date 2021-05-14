@@ -4,8 +4,27 @@
 <div class="container" style="height: auto;">
   <div class="row justify-content-center">
     <div class="container mt-5">
-
-   
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title "> Bloquear: </h4>
+            <p class="card-category"> </p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+            <div class="col-12 text-right">
+            <a class="btn btn-primary" href="{{ route('users.index') }}">Atras</a>
+            </div>
+            </div>
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                  <strong>Revisa!</strong> Algo salio mal con el formulario.<br><br>
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+            @endif
     <form action="" method="post" action="{{ route('block') }}">
 
         <!-- CROSS Site Request Forgery Protection -->
@@ -22,6 +41,8 @@
 
         <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
     </form>
+    </div>
+    </div>
     </div>
   </div>
 </div>

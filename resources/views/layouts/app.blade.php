@@ -37,7 +37,7 @@
             <ul class="dropdown-menu">
               <li class="header-title"> Sidebar Filters</li>
               <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger active-color">
+                <a href="javascript:formvoid(0)" class="switch-trigger active-color">
                   <div class="badge-colors ml-auto mr-auto">
                     <span class="badge filter badge-purple " data-color="purple"></span>
                     <span class="badge filter badge-azure" data-color="azure"></span>

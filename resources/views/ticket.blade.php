@@ -6,15 +6,25 @@
     <div class="col-md-12">
     <div class="card">
         <div class="card-header card-header-primary">
-            <h4 class="card-title "> Crear Usuario: </h4>
+            <h4 class="card-title"> Boleto: </h4>
             <p class="card-category"> </p>
         </div>
         <div class="card-body">
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-12 text-right">
                 <a class="btn btn-primary" href="#"></a>
                 </div>
             </div>
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                  <strong>Revisa!</strong> Algo salio mal con el formulario.<br><br>
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+            @endif
 
         <form action="" method="post" action="{{ route('ticket.store') }}">
 
@@ -40,6 +50,7 @@
                         <option value="{{ $value->id }}">{{ $value->name }}</option>
                     @endforeach
                 </select>
+                <a href="javascript:void(0);" class="addbutton" title="Add field"><i class="material-icons">add</i></a>
             </div>
 
             <div class="form-group">
@@ -72,6 +83,7 @@
         var wrapper = $('.field_wrapper'); //Input field wrapper
         var fieldHTML = '<div><input class="form-control" type="number" name="num[]" value=""  onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" /><a href="javascript:void(0);" class="remove_button"><i class="material-icons">remove</i></a></div>'; //New input field html 
         var x = 1; //Initial field counter is 1
+
         
         //Once add button is clicked
         $(addButton).click(function(){
@@ -81,7 +93,7 @@
                 $(wrapper).append(fieldHTML); //Add field html
             }
         });
-        
+
         //Once remove button is clicked
         $(wrapper).on('click', '.remove_button', function(e){
             e.preventDefault();
@@ -105,5 +117,5 @@
         if(theEvent.preventDefault) theEvent.preventDefault();
         }
     }
-    </script>
+</script>
 @endsection
