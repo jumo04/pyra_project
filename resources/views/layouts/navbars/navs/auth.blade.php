@@ -22,10 +22,9 @@
       </form> -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('home') }}">
-            <i class="material-icons">dashboard</i>
+        <a href="{{ url('/logout') }}">        
+        <i class="material-icons">logout</i>
             <p class="d-lg-none d-md-block">
-              {{ __('Stats') }}
             </p>
           </a>
         </li>

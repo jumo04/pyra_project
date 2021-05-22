@@ -6,7 +6,7 @@
     <div class="container mt-5">
     <div class="card">
         <div class="card-header card-header-primary">
-            <h4 class="card-title "> Bloquear: </h4>
+            <h4 class="card-title ">Bloquear: </h4>
             <p class="card-category"> </p>
         </div>
         <div class="card-body">
@@ -39,7 +39,7 @@
         </div>
 
 
-        <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
+        <input type="submit" name="send" value="Bloquear" class="btn  btn-primary btn-block">
     </form>
     </div>
     </div>

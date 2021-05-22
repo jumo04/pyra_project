@@ -20,7 +20,7 @@
         </div>
 
 
-        <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
+        <input type="submit" name="send" value="Des Bloquear class="btn btn-block">
     </form>
     </div>
   </div>

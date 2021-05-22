@@ -18,6 +18,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+         $this->middleware('permission:listar-usuarios|crea-usuarios|editar-usuarios|eliminar-usuarios', ['only' => ['index','store']]);
+         $this->middleware('permission:crea-usuarios', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-usuarios', ['only' => ['edit','update']]);
+         $this->middleware('permission:eliminar-usuarios', ['only' => ['destroy']]); 
+    }
+
     public function index(Request $request)
     {
         $users = User::orderBy('id','DESC')->paginate(5);
@@ -135,8 +144,6 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
-     
     public function destroy($id)
     {
         User::find($id)->delete();

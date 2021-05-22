@@ -4,7 +4,6 @@
         
         </nav>
         <div class="copyright float-right">
-        &copy;
         <a href="" target="_blank"></a>
         </div>
     </div>

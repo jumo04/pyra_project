@@ -54,8 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
 					])->name('show_ticket');
 		
 	Route::get('/mostrar-numero', 
-	[App\Http\Controllers\TicketController::class, 'show_number'
-		])->name('show_number');
+				[App\Http\Controllers\TicketController::class, 'show_number'
+					])->name('show_number');
 
 	Route::get('icons', function () {
 		return view('pages.icons');
@@ -78,10 +78,28 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
-	Route::resource('roles', RoleController::class);
+	Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 	Route::get('/crear-usuario', 
 	[App\Http\Controllers\UserController::class, 'create'
 		])->name('users.create');
+	Route::get('/roles', 
+	[App\Http\Controllers\RoleController::class, 'index'
+		])->name('roles.index');
+	Route::get('/roles-mostrar', 
+	[App\Http\Controllers\RoleController::class, 'show'
+		])->name('roles.show');
+	Route::get('/crear-rol', 
+	[App\Http\Controllers\RoleController::class, 'create'
+		])->name('roles.create');
+	Route::get('/editar-rol/{id}', 
+	[App\Http\Controllers\RoleController::class, 'edit'
+		])->name('roles.edit');
+	Route::post('/crear-rol', 
+	[App\Http\Controllers\RoleController::class, 'store'
+		])->name('roles.store');
+	Route::post('/editar-rol/{id}', 
+	[App\Http\Controllers\RoleController::class, 'update'
+		])->name('roles.update');
 	Route::get('/usuarios', 
 	[App\Http\Controllers\UserController::class, 'index'
 		])->name('users.index');
@@ -94,8 +112,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/editar-usuario/{id}', 
 	[App\Http\Controllers\UserController::class, 'update'
 		])->name('users.update');
-	Route::post('/eliminar-usuario', 
+	Route::post('/eliminar-usuario/{id}', 
 	[App\Http\Controllers\UserController::class, 'destroy'
 		])->name('users.destroy');
+	Route::post('/eliminar-rol/{id}', 
+	[App\Http\Controllers\RoleController::class, 'destroy'
+		])->name('roles.destroy');
 });
 
