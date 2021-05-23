@@ -13,9 +13,9 @@
             <div class="card-body">
               <div class="row">
               <div class="pull-right">
-                @can('role-create')
-                    <a class="btn btn-success" href="{{ route('roles.create') }}"> Crear Rol</a>
-                @endcan
+                  @can('role-create')
+                      <a class="btn btn-success" href="{{ route('roles.create') }}"> Crear Rol</a>
+                  @endcan
                  </div>
               </div>
               @if ($message = Session::get('success'))
@@ -28,20 +28,20 @@
                 <tr>
                 <th>No</th>
                 <th>Name</th>
-                <th width="280px">Action</th>
+                <th width="280px">Configuracion</th>
                 </tr>
             @foreach ($roles as $key => $role)
                 <tr>
                     <td>{{ ++$i }}</td>
                     <td>{{ $role->name }}</td>
                     <td>
-                        <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
+                          <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Mostrar</a>
                         @can('role-edit')
-                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
+                          <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
                         @endcan
                         @can('role-delete')
                             {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                  {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
                         @endcan
                     </td>

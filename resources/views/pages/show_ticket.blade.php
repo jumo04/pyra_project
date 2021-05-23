@@ -11,9 +11,17 @@
             <p class="card-category"></p>
           </div>
           <div class="card-body">
+          <div class="row">
+            <div class="col-12 text-right">
+            <a class="nav-link btn btn-primary" href="{{ route('ticket.form') }}">Crear Boleto</a>
+            </div>
+            <div class="row">
+              <div class="pull-right">
+              </div>
+            </div> 
             <div class="table-responsive">
               <table class="table">
-                <thead class=" text-primary">
+                <thead class="text-primary">
                   <th>
                     Nombre
                   </th>

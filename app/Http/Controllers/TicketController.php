@@ -45,12 +45,6 @@ class TicketController extends Controller
 
     public function TicketForm(Request $request) {
 
-        // Form validation
-        $this->validate($request, [
-            
-        ]);
-
-
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'num',
@@ -68,11 +62,8 @@ class TicketController extends Controller
             }
         });
 
-
-
         $this->storeNumber($request);
         
-
         // Store data in database
         Ticket::create($request->all());
         

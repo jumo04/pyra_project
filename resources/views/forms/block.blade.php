@@ -12,7 +12,7 @@
         <div class="card-body">
             <div class="row">
             <div class="col-12 text-right">
-            <a class="btn btn-primary" href="{{ route('users.index') }}">Atras</a>
+            <a class="btn btn-primary" href="{{ route('show_number') }}">Atras</a>
             </div>
             </div>
             @if (count($errors) > 0)

@@ -12,7 +12,7 @@
         <div class="card-body">
             <div class="row text-center">
                 <div class="col-12 text-right">
-                <a class="btn btn-primary" href="#"></a>
+                  <a class="btn btn-primary" href="#"></a>
                 </div>
             </div>
             @if (count($errors) > 0)
@@ -47,7 +47,7 @@
                 <label>Loteria:</label>
                 <select class="form-control" name="lottery_id" id="lotteryselect">
                     @foreach($lot as $key => $value)
-                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                        <opti   on value="{{ $value->id }}">{{ $value->name }}</option>
                     @endforeach
                 </select>
                 <a href="javascript:void(0);" class="addbutton" title="Add field"><i class="material-icons">add</i></a>
