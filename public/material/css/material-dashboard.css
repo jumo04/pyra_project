@@ -2246,6 +2246,10 @@ select.form-control:focus::-ms-value {
   padding-left: 0;
 }
 
+.btn-btn-per{
+  background-color: #03b5e5 !important;
+}
+
 .form-control-sm,
 .input-group-sm>.form-control,
 .input-group-sm>.input-group-prepend>.input-group-text,

@@ -13,7 +13,7 @@
           <div class="card-body">
           <div class="row">
             <div class="col-12 text-right">
-            <a class="nav-link btn btn-primary" href="{{ route('ticket.form') }}">Crear Boleto</a>
+             <a class="btn btn-primary btn-btn-per" href="{{ route('ticket.form') }}">Crear Boleto</a>
             </div>
             <div class="row">
               <div class="pull-right">
@@ -39,8 +39,7 @@
                   </th>
                 </thead>
                 <tbody>
-                
-                @foreach($ticket as $key => $value)
+                @foreach($ticket as $value)
                     <tr>
                       <td>
                       {{ $value->name }}

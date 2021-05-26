@@ -5,23 +5,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-warning card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">content_copy</i>
-              </div>
-              <p class="card-category">Used Space</p>
-              <h3 class="card-title">49/50
-                <small>GB</small>
-              </h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons text-danger">warning</i>
-                <a href="#pablo">Get More Space...</a>
-              </div>
-            </div>
-          </div>
+
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
@@ -29,8 +13,8 @@
               <div class="card-icon">
                 <i class="material-icons">store</i>
               </div>
-              <p class="card-category">Revenue</p>
-              <h3 class="card-title">$34,245</h3>
+              <p class="card-category">Total Dinero Jugado</p>
+              <h3 class="card-title">{{ $total_value }}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -45,74 +29,44 @@
               <div class="card-icon">
                 <i class="material-icons">info_outline</i>
               </div>
-              <p class="card-category">Fixed Issues</p>
-              <h3 class="card-title">75</h3>
+              <p class="card-category">Boletos jugados</p>
+              <h3 class="card-title">{{ $total_tickets }} </h3>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">local_offer</i> Tracked from Github
+                <i class="material-icons">local_offer</i> {{ auth()->user()->place}}
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-info card-header-icon">
-              <div class="card-icon">
-                <i class="fa fa-twitter"></i>
-              </div>
-              <p class="card-category">Followers</p>
-              <h3 class="card-title">+245</h3>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">update</i> Just Updated
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card card-chart">
             <div class="card-header card-header-success">
               <div class="ct-chart" id="dailySalesChart"></div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Daily Sales</h4>
+              <h4 class="card-title">Ventas de una semana</h4>
               <p class="card-category">
-                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                <span class="text-success"><i class="fa fa-long-arrow-up"></i> Venta </span></p>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">access_time</i> updated 4 minutes ago
+                <i class="material-icons">access_time</i> actualizado hace un dia
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card card-chart">
-            <div class="card-header card-header-warning">
-              <div class="ct-chart" id="websiteViewsChart"></div>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Email Subscriptions</h4>
-              <p class="card-category">Last Campaign Performance</p>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> campaign sent 2 days ago
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card card-chart">
             <div class="card-header card-header-danger">
               <div class="ct-chart" id="completedTasksChart"></div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Completed Tasks</h4>
+              <h4 class="card-title">Tareas Completadas</h4>
               <p class="card-category">Last Campaign Performance</p>
             </div>
             <div class="card-footer">
@@ -124,7 +78,9 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-3 col-sm-none">
+        </div>
+        <!-- <div class="col-lg-6 col-md-12">
           <div class="card">
             <div class="card-header card-header-tabs card-header-primary">
               <div class="nav-tabs-navigation">
@@ -295,11 +251,12 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="tab-pane" id="settings">
-                </div>
+                
               </div>
             </div>
           </div>
+        </div> -->
+        <div class="col-lg-3 col-sm-none">
         </div>
       </div>
     </div>
@@ -310,7 +267,36 @@
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
+/*       md.initDashboardPageCharts();
+ */      
+      if ($('#dailySalesChart').length != 0 ) {
+        /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+
+        dataDailySalesChart = {
+          labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
+          series: [
+            [12, 17, 7, 17, 23, 18, 38]
+          ]
+        };
+
+        optionsDailySalesChart = {
+          lineSmooth: Chartist.Interpolation.cardinal({
+            tension: 0
+          }),
+          low: 0,
+          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+          chartPadding: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          },
+        }
+
+        var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+
+        var animationHeaderChart = new Chartist.Line('#websiteViewsChart', dataDailySalesChart, optionsDailySalesChart);
+      }
     });
   </script>
 @endpush

@@ -22,7 +22,7 @@
       </form> -->
       <ul class="navbar-nav">
         <li class="nav-item">
-        <a href="{{ url('/logout') }}">        
+        <a rel="tooltip" title="Salir" href="{{ url('/logout') }}">        
         <i class="material-icons">logout</i>
             <p class="d-lg-none d-md-block">
             </p>

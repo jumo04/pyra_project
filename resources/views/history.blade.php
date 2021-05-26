@@ -12,15 +12,6 @@
         <!-- CROSS Site Request Forgery Protection -->
         @csrf
 
-        <div class="form-group">
-            <label>date:</label>
-            <input type="date" class="form-control" name="day">
-        </div>
-        <div class="form-group">
-            <label>total_count:</label>
-            <input type="text" class="form-control" name="total_count" >
-        </div>
-
 
         <div class="form-group">
             <label>Ganador:</label>
