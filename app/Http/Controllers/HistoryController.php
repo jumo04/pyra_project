@@ -13,7 +13,7 @@ class HistoryController extends Controller
         return view('history' , ['place' => $places]);
       }
 
-    public function ShowHistory(Request $request) {
+    public function showistory(Request $request) {
         $history = DB::select('select * from history');
         return view('history', ['history' => $history]);
     }

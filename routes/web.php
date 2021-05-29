@@ -85,7 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/roles', 
 	[App\Http\Controllers\RoleController::class, 'index'
 		])->name('roles.index');
-	Route::get('/roles-mostrar', 
+	Route::get('/roles-mostrar/{id}', 
 	[App\Http\Controllers\RoleController::class, 'show'
 		])->name('roles.show');
 	Route::get('/crear-rol', 

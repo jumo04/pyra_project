@@ -20,7 +20,7 @@ class CreateHistoriesTable extends Migration
             $table->string('total_count');
             $table->string('winner');
             $table->string('total');
-            $table->string('place_id');
+            $table->unsignedBigInteger('place_id');
             $table->timestamps();
         });
     }

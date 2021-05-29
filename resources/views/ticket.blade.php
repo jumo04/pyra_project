@@ -1,7 +1,7 @@
 @extends('layouts.app', ['activePage' => 'ticket', 'title' => __('Ticket')])
 
 @section('content')
-<div class="container" style="height: auto;">
+<div class="container" style="height: auto;padding-top: 46px;">
   <div class="row justify-content-center">
     <div class="col-md-12">
     <div class="card">
@@ -12,7 +12,7 @@
         <div class="card-body">
             <div class="row text-center">
                 <div class="col-12 text-right">
-                  <a class="btn btn-primary" href="#"></a>
+                  <a class="btn btn-primary" href="{{ route('show_number') }}">Atras</a>
                 </div>
             </div>
             @if (count($errors) > 0)
@@ -38,28 +38,29 @@
             <div class="form-group">
                 <div class="field_wrapper">
                     <label>Numeros:</label>
-                    <input type="number" class="form-control" name="num[]" value="" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)"  />
+                    <input type="string" class="form-control" name="num[]" value="" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)"  />
                     <a href="javascript:void(0);" class="add_button" title="Add field"><i class="material-icons">add</i></a>
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Loteria:</label>
-                <select class="form-control" name="lottery_id" id="lotteryselect">
-                    @foreach($lot as $key => $value)
-                        <opti   on value="{{ $value->id }}">{{ $value->name }}</option>
+                <br/>
+                    @foreach($lot as $value)
+                        <label>{{ Form::checkbox('lottery_id[]', $value->id, false, array('class' => 'name')) }}
+                        {{ $value->name }}</label>
+                    <br/>
                     @endforeach
                 </select>
-                <a href="javascript:void(0);" class="addbutton" title="Add field"><i class="material-icons">add</i></a>
             </div>
 
             <div class="form-group">
                 <label>Lugar:</label>
-                <select name="place_id" id="listselect" class="form-control">
-                    @foreach($place as $key => $value)
-                        <option value="{{ $value->id }}">{{ $value->place }}</option>
-                    @endforeach
+                <select style="display:none;" name="place_id" id="listselect" class="form-control">
+                    <option value="{{ auth()->user()->place['id']}}">{{ auth()->user()->place['name'] }}</option>
+                    
                 </select>
+                <label>{{ auth()->user()->place['name'] }}</label>
             </div>
 
             <div class="form-group">
@@ -80,8 +81,9 @@
     $(document).ready(function(){
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
+        var adButton = $('.addbutton'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div><input class="form-control" type="number" name="num[]" value=""  onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" /><a href="javascript:void(0);" class="remove_button"><i class="material-icons">remove</i></a></div>'; //New input field html 
+        var fieldHTML = '<div><input class="form-control" type="string" name="num[]" value=""  onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" /><a href="javascript:void(0);" class="remove_button"><i class="material-icons">remove</i></a></div>'; //New input field html 
         var x = 1; //Initial field counter is 1
 
         

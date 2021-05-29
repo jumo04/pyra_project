@@ -49,7 +49,7 @@
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group">
                           <strong>Lugar:</strong>
-                          {!! Form::select('place', $places,[], array('class' => 'form-control')) !!}
+                          {!! Form::select('place_id', $places,[], array('class' => 'form-control')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">

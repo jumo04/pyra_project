@@ -13,7 +13,7 @@
 
         <div class="form-group">
             <label>Lugar:</label>
-            <input type="text" class="form-control" name="place" id="place">
+            <input type="text" class="form-control" name="name" id="name">
         </div>
 
 

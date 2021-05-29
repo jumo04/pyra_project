@@ -45,7 +45,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        $places = Place::pluck('place','place')->all();
+        $places = Place::pluck('name','name')->all();
         return view('users.create',compact('roles', 'places') );
     }
 
@@ -60,9 +60,8 @@ class UserController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'cedula' => 'numeric|required|between:7,10|unique:users,cedula',
+            'cedula' => 'numeric|required|unique:users,cedula',
             'email' => 'required|email|unique:users,email',
-            'place' => 'required',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ]);
@@ -98,7 +97,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
-        $places = Place::pluck('place','place')->all();
+        $places = Place::pluck('name','id')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
         return view('users.edit',compact('user','roles','userRole', 'places'));
@@ -117,8 +116,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'cedula' => 'numeric|required|between:7,10|unique:users,cedula',
-            'place' => 'required',
+            'cedula' => 'numeric|required|unique:users,cedula',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
@@ -131,11 +129,15 @@ class UserController extends Controller
             $input = Arr::except($input,array('password'));    
         }
         $user = User::find($id);
+        $place = Place::find($request->input('place_id'));
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
         $user->assignRole($request->input('roles'));
-        return redirect()->route('users.index')->with('success','Usuario actualizado');
+        $user->place()->save($place);
+        $place->save();
+        $place->user()->save($user);
+        return redirect()->route('  users.index')->with('success','Usuario actualizado');
     }
 
     /**

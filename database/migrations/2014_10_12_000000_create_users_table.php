@@ -18,11 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->integer('cedula')->unique();
             $table->string('email')->unique();
-            $table->string('place');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('place_id')->nullable();
+            $table->unsignedBigInteger('ticket_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 

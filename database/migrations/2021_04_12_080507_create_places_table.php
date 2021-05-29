@@ -15,11 +15,22 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
-            $table->string('place');
+            $table->string('name');
             $table->string('spot')->default('');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
+
+            
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
+
     }
+
+
+    
 
     /**
      * Reverse the migrations.

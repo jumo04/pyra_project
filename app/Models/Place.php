@@ -9,9 +9,11 @@ class Place extends Model
 {
     use HasFactory;
 
-    public function histories(){ 
-        return $this->belongsTo(History::class);
-    }  
+    protected $table = 'places';
 
-    public $fillable = ['place'];
+    public $fillable = ['name'];
+
+    public function user(){ 
+        return $this->hasOne(User::class);
+    }  
 }

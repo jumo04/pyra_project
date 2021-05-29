@@ -11,7 +11,7 @@ class LotteryController extends Controller
     //
     public function createForm(Request $request) {
         return view('lottery');
-      }
+    }
 
 
     public function LotteryForm(Request $request) {

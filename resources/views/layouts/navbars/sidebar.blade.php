@@ -11,14 +11,14 @@
   </div>  
   <div class="sidebar-wrapper">
     <ul class="nav">
-      <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage  == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('home') }}">
           <i class="material-icons">dashboard</i>
             <p>Inicio</p>
         </a>
       </li>
       @can('listar-usuarios')
-      <li class="nav-item{{ $activePage == 'user-management' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage  == 'user-management' ?  ' active' : '' }}">
         <a class="nav-link" href="{{ route('users.index') }}">
           <i class="material-icons">account_box</i>
             <p>{{ __('Usuarios') }}</p>
@@ -26,7 +26,7 @@
       </li>
       @endcan
       @can('listar-numeros')
-      <li class="nav-item{{ $activePage  == 'show_number' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage   == 'show_number' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('show_number') }}">
           <i class="material-icons">format_list_numbered</i>
             <p>{{ __('Numeros') }}</p>
@@ -41,7 +41,7 @@
         </a>
       </li>
       @endcan 
-      <li class="nav-item{{ $activePage == 'show_ticket' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage  == 'show_ticket' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('show_ticket') }}">
           <i class="material-icons">ticket</i>
             <p>{{ __('Boleto') }}</p>

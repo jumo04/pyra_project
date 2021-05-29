@@ -16,13 +16,17 @@ class CreateLotteriesTable extends Migration
         Schema::create('lotteries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('block')->default(false);
+            $table->dateTime('close')->nullable();
+            $table->unsignedBigInteger('ticket_id')->nullable();
+
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
+     *  
      * @return void
      */
     public function down()

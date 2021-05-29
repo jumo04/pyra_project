@@ -34,7 +34,7 @@
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">local_offer</i> {{ auth()->user()->place}}
+                <i class="material-icons">local_offer</i> {{ auth()->user()->place['name']}}
               </div>
             </div>
           </div>

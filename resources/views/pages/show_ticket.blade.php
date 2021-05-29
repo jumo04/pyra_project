@@ -48,10 +48,9 @@
                       {{ $value->num }}
                       </td>
                       <td>
-                      {{ $value-> lottery_id }}
+                      {{ $value-> lottery_id}}
                       </td>
                       <td>
-                      {{ $value->place_id }}
                       </td>
                       <td class="text-primary">
                       {{ $value->total }}

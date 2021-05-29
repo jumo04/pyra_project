@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lottery;
 use App\Models\Number;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -24,6 +26,11 @@ class TicketController extends Controller
          $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:product-delete', ['only' => ['destroy']]);
     } */
+
+    function __construct()
+    {
+         $this->middleware('permission:listar-numeros|crear-numeros|editar-numeros|eliminar-numeros', ['only' => ['show_number']]);
+    }
 
     public function createForm(Request $request) {
         $lotteries = DB::select('select * from lotteries');
@@ -49,7 +56,6 @@ class TicketController extends Controller
             'name' => 'required',
             'num',
             'lottery_id' => 'required',
-            'place_id' => 'required',
             'total'=>'required',
         ]);
 
@@ -62,21 +68,36 @@ class TicketController extends Controller
             }
         });
 
-        $this->storeNumber($request);
+    
+        $this->storeNumber($val);
         
         // Store data in database
-        Ticket::create($request->all());
+/*         Ticket::create($request->all());
+ */     $ticket = new Ticket();
+        $ticket->name = $request->get('name');
+        $ticket->num = $request->get('num');
+        $ticket->total = $request->get('total');
+        $lotteries = $request->get('lottery_id');
+        $ticket->name = $request->get('name');
+        $ticket->save();
+        $user = User::find(auth()->id());
+            $user->tickets()->save($ticket);
         
-        // 
+        foreach ($lotteries as  $value) {
+            $lot = Lottery::find($value);
+            $ticket->lotteries()->save($lot);
+        }
+        
+
         return back()->with('bingo');
     }
 
     public function storeNumber($request){
 
-        $imp = $request->input('num');
+        $imp = $request;
         $numbers = DB::table('numbers')->pluck('num')->toArray();
 
-        foreach ($request->input('num') as $value) {
+        foreach ($request as $value) {
 
             if (!in_array($value, $numbers)) {
                 $number = Number::create(['num' => $value]);

@@ -9,15 +9,18 @@ class Ticket extends Model
 {
     use HasFactory;
 
-    public function places(){ 
-        return $this->belongsTo(Place::class);
+    protected $table = 'tickets';
+
+
+    public function user(){ 
+        return $this->belongsTo(User::class);
     }   
 
-    public function lotterys(){ 
-        return $this->belongsTo(Lottery::class);
+    public function lotteries(){ 
+        return $this->hasMany(Lottery::class);
     }  
 
-    public $fillable = ['name', 'num', 'place_id', 'lottery_id', 'total'];
+    public $fillable = ['name', 'num', 'total'];
 
     
     public function setNumAttribute($value)
@@ -33,5 +36,22 @@ class Ticket extends Model
     {
         return $this->attributes['num'] = json_decode($value);
     }
+
+
+    
+
+   /*  public function setLotteryAttribute($value)
+    {
+        $this->attributes['lottery'] = json_encode($value);
+    }
+ */
+    /**
+     * Get the categories
+     *
+     */
+    /* public function getLotteryAttribute($value)
+    {
+        return $this->attributes['lottery'] = json_decode($value);
+    } */
 
 }

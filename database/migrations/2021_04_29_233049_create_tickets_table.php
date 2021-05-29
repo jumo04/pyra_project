@@ -17,11 +17,38 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('num');
-            $table->unsignedInteger('lottery_id');
-            $table->unsignedInteger('place_id');
+            $table->unsignedBigInteger('lottery_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('total');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('lottery_id')
+                ->references('id')
+                ->on('lotteries')
+                ->onDelete('cascade');
         });
+
+        /* Schema::create('user_has_tickets', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('ticket_id');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('ticket_id')
+                ->references('id')
+                ->on('tickets')
+                ->onDelete('cascade');
+
+            $table->primary(['user_id', 'ticket_id'], 'user_has_tickets_ticket_id_user_id_primary');
+        }); */
 
         /* Schema::table('tickets', function($table)
         {
@@ -32,7 +59,6 @@ class CreateTicketsTable extends Migration
                 ->references('name')->on('lotteries');
         }); */
 
-        Schema::enableForeignKeyConstraints();
 
     }
 

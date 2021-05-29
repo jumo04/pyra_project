@@ -15,12 +15,17 @@ class PlaceSeeder extends Seeder
     public function run()
     {
         DB::table('places')->insert([
-            'place' => 'Apartada',
+            'name' => 'Medellin',
             'created_at' => now(),
             'updated_at' => now()
         ]);
         DB::table('places')->insert([
-            'place' => 'Necocli',
+            'name' => 'Apartada',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('places')->insert([
+            'name' => 'Necocli',
             'created_at' => now(),
             'updated_at' => now()
         ]);
