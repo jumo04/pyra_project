@@ -14894,10 +14894,6 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   min-height: calc(100vh - 123px);
 }
 
-.main-panel>.footer {
-  border-top: 1px solid #e7e7e7;
-}
-
 .main-panel>.navbar {
   margin-bottom: 0;
 }

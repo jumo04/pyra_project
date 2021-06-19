@@ -16,7 +16,7 @@
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
-    <body class="{{ $class ?? '' }}">
+    <body class="{{ $class ?? '' }}" style="background-color: white;">
         @auth()
             @include('layouts.page_templates.auth')
         @endauth

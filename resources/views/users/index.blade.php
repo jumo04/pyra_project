@@ -57,9 +57,9 @@
                       </td>
                       <td>
                       <td>
-                        <a class="btn btn-primary" href="{{ route('users.edit',$value->id) }}">Edit</a>
+                        <a class="btn btn-primary" href="{{ route('users.edit',$value->id) }}">Editar</a>
                         {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $value->id],'style'=>'display:inline']) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}
                         </td>
                       </td>
