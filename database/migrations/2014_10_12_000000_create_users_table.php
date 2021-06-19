@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('place_id')->nullable();
+            $table->unsignedBigInteger('place_id');
             $table->unsignedBigInteger('ticket_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

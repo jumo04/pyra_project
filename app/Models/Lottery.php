@@ -13,10 +13,9 @@ class Lottery extends Model
     
     public $fillable = ['name', 'block', 'close'];
 
-    
-    public function ticket(){ 
-        return $this->belongsTo(Ticket::class);
-    }   
-    
+    //relacion muchos a muchos
+    public function tickets(){ 
+        return $this->belongsToMany(Ticket::class);
+    }
 
 }

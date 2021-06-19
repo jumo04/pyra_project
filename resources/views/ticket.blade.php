@@ -37,20 +37,22 @@
 
             <div class="form-group">
                 <div class="field_wrapper">
-                    <label>Numeros:</label>
+                    <label>Números:</label>
                     <input type="string" class="form-control" name="num[]" value="" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)"  />
                     <a href="javascript:void(0);" class="add_button" title="Add field"><i class="material-icons">add</i></a>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Loteria:</label>
+                <label>Lotería:</label>
                 <br/>
+                <div style="display:flex;">
                     @foreach($lot as $value)
-                        <label>{{ Form::checkbox('lottery_id[]', $value->id, false, array('class' => 'name')) }}
+                    <label>{{ Form::checkbox('lottery_id[]', $value->id, false, array('class' => 'name')) }}
                         {{ $value->name }}</label>
                     <br/>
                     @endforeach
+                </div>
                 </select>
             </div>
 
@@ -81,7 +83,6 @@
     $(document).ready(function(){
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
-        var adButton = $('.addbutton'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
         var fieldHTML = '<div><input class="form-control" type="string" name="num[]" value=""  onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" /><a href="javascript:void(0);" class="remove_button"><i class="material-icons">remove</i></a></div>'; //New input field html 
         var x = 1; //Initial field counter is 1

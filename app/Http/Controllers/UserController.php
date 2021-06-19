@@ -116,7 +116,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'cedula' => 'numeric|required|unique:users,cedula',
+            'cedula' => 'numeric|required|unique:users,cedula,'.$id,
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
@@ -137,7 +137,7 @@ class UserController extends Controller
         $user->place()->save($place);
         $place->save();
         $place->user()->save($user);
-        return redirect()->route('  users.index')->with('success','Usuario actualizado');
+        return redirect()->route('users.index')->with('success','Usuario actualizado');
     }
 
     /**

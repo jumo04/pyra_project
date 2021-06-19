@@ -16,8 +16,9 @@ class Ticket extends Model
         return $this->belongsTo(User::class);
     }   
 
+    //relacion muchos a muchos
     public function lotteries(){ 
-        return $this->hasMany(Lottery::class);
+        return $this->belongsToMany(Lottery::class);
     }  
 
     public $fillable = ['name', 'num', 'total'];

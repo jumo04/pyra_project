@@ -42,15 +42,20 @@
                 @foreach($ticket as $value)
                     <tr>
                       <td>
-                      {{ $value->name }}
+                        {{ $value->name }}
                       </td>
                       <td>
-                      {{ $value->num }}
+                        @foreach($value->num as $val)
+                          <label class="badge badge-danger">{{ $val }}</label>
+                        @endforeach
                       </td>
                       <td>
-                      {{ $value-> lottery_id}}
+                        @foreach($value->lotteries as $val)
+                          <label class="badge badge-success" style="background-color: #12a69e;">{{ $val->name }}</label>
+                        @endforeach
                       </td>
                       <td>
+                       {{ $value->user->place->name}}
                       </td>
                       <td class="text-primary">
                       {{ $value->total }}

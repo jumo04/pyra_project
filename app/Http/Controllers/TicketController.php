@@ -21,16 +21,16 @@ class TicketController extends Controller
      */
     /* function __construct()
     {
-         $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:tiquete-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
          $this->middleware('permission:product-create', ['only' => ['create','store']]);
          $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:product-delete', ['only' => ['destroy']]);
     } */
 
-    function __construct()
+   /*  function __construct()
     {
          $this->middleware('permission:listar-numeros|crear-numeros|editar-numeros|eliminar-numeros', ['only' => ['show_number']]);
-    }
+    } */
 
     public function createForm(Request $request) {
         $lotteries = DB::select('select * from lotteries');
@@ -39,10 +39,8 @@ class TicketController extends Controller
       }
 
     public function show_ticket(Request $request){
-        $ticket = DB::select('select * from tickets');
-        $lotteries = DB::table('select * from lotteries');
-        $places = DB::select('select * from places');
-        return view('pages.show_ticket',  ['ticket' => $ticket,  'lot' => $lotteries, 'place' => $places]);
+        $ticket = Ticket::all();
+        return view('pages.show_ticket',  ['ticket' => $ticket]);
     }
 
     public function show_number(Request $request){
@@ -66,14 +64,9 @@ class TicketController extends Controller
                     return back()->withErrors($validator->errors());
                 }
             }
-        });
+        });        
 
-    
-        $this->storeNumber($val);
-        
-        // Store data in database
-/*         Ticket::create($request->all());
- */     $ticket = new Ticket();
+        $ticket = new Ticket();
         $ticket->name = $request->get('name');
         $ticket->num = $request->get('num');
         $ticket->total = $request->get('total');
@@ -81,18 +74,22 @@ class TicketController extends Controller
         $ticket->name = $request->get('name');
         $ticket->save();
         $user = User::find(auth()->id());
-            $user->tickets()->save($ticket);
-        
-        foreach ($lotteries as  $value) {
-            $lot = Lottery::find($value);
-            $ticket->lotteries()->save($lot);
-        }
-        
+        $user->tickets()->save($ticket);
+        $ticket->lotteries()->sync($lotteries);
 
+        $count_numbers = count($val) ;
+        $count_nu = $count_numbers * count($lotteries);
+        
+        $div = $ticket['total'] / $count_nu ;
+
+
+        $this->storeNumber($val, $div);
+
+        
         return back()->with('bingo');
     }
 
-    public function storeNumber($request){
+    public function storeNumber($request, $div){
 
         $imp = $request;
         $numbers = DB::table('numbers')->pluck('num')->toArray();
@@ -100,13 +97,13 @@ class TicketController extends Controller
         foreach ($request as $value) {
 
             if (!in_array($value, $numbers)) {
-                $number = Number::create(['num' => $value]);
-                Log::info('el numero ha sido guardado'.$value);
+                $number = Number::create(['num' => $value, 'total' => $div]);
+                Log::info('el número ha sido guardado'.$value);
             } else {
                 $number = Number::where('num', $value)->get()->first();
-                $prove = $number['total_count'];
                 //dividir el precio por numero para agregarlo al numero y asi sumarlo
-                $number['total_count'] = $prove + 1;
+                $number['total_count'] = $number['total_count'] + 1;
+                $number['total'] = $div + $number['total'];
                 $number->save();
                 Log::info('el numero ha sido actualizado'.$value);
             } 

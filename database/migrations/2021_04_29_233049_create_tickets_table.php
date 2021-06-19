@@ -17,7 +17,6 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('num');
-            $table->unsignedBigInteger('lottery_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('total');
             $table->timestamps();
@@ -27,10 +26,6 @@ class CreateTicketsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->foreign('lottery_id')
-                ->references('id')
-                ->on('lotteries')
-                ->onDelete('cascade');
         });
 
         /* Schema::create('user_has_tickets', function (Blueprint $table) {

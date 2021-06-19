@@ -30,7 +30,9 @@ class PermissionTableSeeder extends Seeder
            'rol-create',
            'rol-edit',
            'rol-delete',
-           'rol-list'
+           'rol-list',
+           'desbloquear-numero',
+           'bloquear-numero'
         ];
 
     

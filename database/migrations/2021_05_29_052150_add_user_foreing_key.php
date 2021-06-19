@@ -11,12 +11,12 @@ class AddUserForeingKey extends Migration
      *
      * @return void
      */
-    /* public function up()
+    public function up()
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
         });
-    } */
+    }
 
     /**
      * Reverse the migrations.

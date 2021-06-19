@@ -1,0 +1,69 @@
+@extends('layouts.app', ['activePage' => 'lottery', 'titlePage' => __('Crear Loteria')])
+
+@section('content')
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title ">Crear Loteria: </h4>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                  <div class="col-12 text-right">
+                    <a class="btn btn-primary" href="{{ route('lotteries.index') }}">Atras</a>
+                  </div>
+              </div>
+              @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                  <strong>Revisa!</strong> Algo salio mal con el formulario.<br><br>
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
+              {!! Form::open(array('route' => 'lottery.store','method'=>'POST')) !!}
+              <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="form-group">
+                          <strong>Nombre:</strong>
+                          {!! Form::text('name', null, array('placeholder' => 'Nombre','class' => 'form-control')) !!}
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="form-group" >
+                        <strong>Hora de Cierre:</strong>
+                          {!! Form::text('close', null, array('placeholder' => 'Hora de cierre','class' => 'form-control datepicker')) !!}
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="form-group">
+                          <strong>Bloquear:</strong>
+                          <label>{{ Form::checkbox('block', null, false ) }}</label>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                      <button type="submit" class="btn btn-primary">Crear</button>
+                  </div>
+              </div>
+              {!! Form::close() !!}
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+  $('.datepicker').datetimepicker({
+      format: 'HH:mm'
+    });
+  });    
+</script>
+@endsection
+
+

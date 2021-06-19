@@ -9,5 +9,5 @@ class Number extends Model
 {
     use HasFactory;
 
-    public $fillable = ['num'];
+    public $fillable = ['num', 'total', 'total_count'];
 }

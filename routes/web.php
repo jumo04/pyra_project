@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,32 +24,27 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Auth::routes();
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
-
+	Route::resource('users', UserController::class);
 	Route::get('/boleto', [App\Http\Controllers\TicketController::class, 'createForm'])->name('ticket.form');
     Route::post('/boleto', [App\Http\Controllers\TicketController::class, 'TicketForm'])->name('ticket.store');
 
-    Route::get('/loteria', [App\Http\Controllers\LotteryController::class, 'createForm'])->name('lottery.form');
-    Route::post('/loteria', [App\Http\Controllers\LotteryController::class, 'LotteryForm'])->name('lottery.store');
+    Route::post('/loterias', [App\Http\Controllers\LotteryController::class, 'store'])->name('lottery.store');
 
     Route::get('/lugar', [App\Http\Controllers\PlaceController::class, 'createForm'])->name('place.form');
     Route::post('/lugar', [App\Http\Controllers\PlaceController::class, 'PlaceForm'])->name('place.store');
 
 	Route::get('/historia', [App\Http\Controllers\HistoryController::class, 'createForm'])->name('history.form');
     Route::post('/historia', [App\Http\Controllers\HistoryController::class, 'HistoryForm'])->name('history.store');
-	Route::post('/bloqueo', [App\Http\Controllers\BlockNumberController::class, 'BlockNumber'])->name('block');
-    Route::post('/desbloqueo', [App\Http\Controllers\BlockNumberController::class, 'deBlockNumber'])->name('deblock');
+	Route::post('/bloqueo', [App\Http\Controllers\BlockNumberController::class, 'block_number'])->name('block');
+    Route::post('/desbloqueo', [App\Http\Controllers\BlockNumberController::class, 'deblock_number'])->name('deblock');
 	
-	Route::get('bloqueo', function () {
-		return view('forms.block');
-	})->name('block');
-
-	Route::get('desbloqueo', function () {
-		return view('forms.deblock');
-	})->name('deblock');
+	Route::get('/bloqueo', [App\Http\Controllers\BlockNumberController::class, 'block'])->name('block');
+	Route::get('/desbloqueo', [App\Http\Controllers\BlockNumberController::class, 'deblock'])->name('deblock');
 
 	Route::get('/mostrar-boleto', 
 				[App\Http\Controllers\TicketController::class, 'show_ticket'
@@ -79,9 +76,24 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 	Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-	Route::get('/crear-usuario', 
-	[App\Http\Controllers\UserController::class, 'create'
-		])->name('users.create');
+	Route::get('/usuarios/crear', 
+		[App\Http\Controllers\UserController::class, 'create'
+			])->name('users.create');
+	Route::post('/crear-usuario', 
+		[App\Http\Controllers\UserController::class, 'store'
+			])->name('users.store');
+	Route::get('/loterias', 
+	[App\Http\Controllers\LotteryController::class, 'index'
+		])->name('lotteries.index');
+	Route::get('/crear-loteria', 
+	[App\Http\Controllers\LotteryController::class, 'create'
+		])->name('lotteries.create');
+	Route::get('/editar-loteria', 
+	[App\Http\Controllers\LotteryController::class, 'edit'
+		])->name('lotteries.edit');
+	Route::post('/editar-loteria/{id}', 
+	[App\Http\Controllers\LotteryController::class, 'update'
+		])->name('lotteries.update');
 	Route::get('/roles', 
 	[App\Http\Controllers\RoleController::class, 'index'
 		])->name('roles.index');
@@ -103,9 +115,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/usuarios', 
 	[App\Http\Controllers\UserController::class, 'index'
 		])->name('users.index');
-	Route::post('/crear-usuario', 
-	[App\Http\Controllers\UserController::class, 'store'
-		])->name('users.store');
 	Route::get('/editar-usuario/{id}', 
 	[App\Http\Controllers\UserController::class, 'edit'
 		])->name('users.edit');

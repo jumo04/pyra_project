@@ -8,22 +8,50 @@ use Illuminate\Support\Facades\DB;
 
 class LotteryController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:loteria-listar|loteria-crear|loteria-editar|loteria-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:loteria-crear', ['only' => ['create','store']]);
+         $this->middleware('permission:loteria-editar', ['only' => ['edit','update']]);
+    }
+
     //
-    public function createForm(Request $request) {
-        return view('lottery');
+
+    public function index(Request $request)
+    {
+        $loterries = Lottery::orderBy('id','DESC')->paginate(5);
+        return view('lotteries.index',compact('loterries'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
+
     }
 
 
-    public function LotteryForm(Request $request) {
+    public function create()
+    {
+        return view('lotteries.create');
+    }
+
+
+    public function store(Request $request) {
 
         // Form validation
         $this->validate($request, [
             'name' => 'required'
          ]);
+        
+         $lotteries = new Lottery();
+         $lotteries->name = $request->get('name');
+         $lotteries->close = $request->get('close');
+         $val = $request->get('block');
+
+         if($val == "on"){
+            $lotteries->block = true;
+         }else{
+            $lotteries->block = false;
+         }
+         $lotteries->save();
 
         //  Store data in database
-        Lottery::create($request->all());
-
         // 
         return back()->with('success');
     }

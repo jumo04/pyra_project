@@ -5971,6 +5971,10 @@ button.close {
   position: relative;
 }
 
+.relative.inline-flex svg{
+  display: none;
+}
+
 .carousel-inner {
   position: relative;
   width: 100%;

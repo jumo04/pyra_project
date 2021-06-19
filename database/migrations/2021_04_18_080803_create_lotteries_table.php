@@ -17,8 +17,9 @@ class CreateLotteriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('block')->default(false);
-            $table->dateTime('close')->nullable();
-            $table->unsignedBigInteger('ticket_id')->nullable();
+            $table->boolean('reblock')->default(false);
+            $table->string('close')->nullable();
+            
 
             $table->timestamps();
         });

@@ -10,13 +10,21 @@ use Illuminate\Support\Facades\Validator;
 
 class BlockNumberController extends Controller
 {
-    //
+    function __construct()
+    {
+         $this->middleware('permission:bloquear-numero', ['only' => ['block_number', 'block' ]]);
+         $this->middleware('permission:desbloquear-numero', ['only' => ['deblock_number', 'deblock']]);
+    }
 
-    /*   public function createForm(Request $request) {
-            return view('block');
-    } */
+    public function block(Request $request) {
+        return view('forms.block');
+    } 
 
-    public function BlockNumber(Request $request) {
+    public function deblock(Request $request) {
+        return view('forms.deblock');
+    } 
+
+    public function block_number(Request $request) {
 
         // Form validation
        /*  */
@@ -44,7 +52,7 @@ class BlockNumberController extends Controller
         return back()->with('success');
     }
 
-    public function deBlockNumber(Request $request) {
+    public function deblock_number(Request $request) {
 
         // Form validation
         foreach ($request->input('num') as $value) {
