@@ -37,7 +37,8 @@ class PermissionTableSeeder extends Seeder
            'loteria-crear',
            'loteria-editar',
            'loteria-delete',
-           'eliminar-todo'
+           'eliminar-todo',
+           'eliminar-boleto'
         ]; 
 
     

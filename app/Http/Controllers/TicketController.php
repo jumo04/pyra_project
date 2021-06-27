@@ -133,5 +133,12 @@ class TicketController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        DB::table("tickets")->where('id',$id)->delete();
+        return redirect()->route('show_ticket')->with('success','Boleto eliminado exitosamente');
+    }
+
+
 
 }

@@ -17,11 +17,13 @@ class CreateHistoriesTable extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->date('day')-> default(DB::raw('CURRENT_TIMESTAMP'));;
-            $table->string('total_count');
             $table->string('winner');
             $table->string('total');
-            $table->unsignedBigInteger('place_id');
+            $table->unsignedBigInteger('lottery_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('lottery_id')->references('id')->on('lotteries')->onDelete('cascade');
+
         });
     }
 

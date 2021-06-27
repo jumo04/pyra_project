@@ -8,17 +8,18 @@
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title">Boletos Jugados:</h4>
-            <p class="card-category"></p>
           </div>
+          @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+          @endif
           <div class="card-body">
           <div class="row">
             <div class="col-12 text-right">
              <a class="btn btn-primary btn-btn-per" href="{{ route('ticket.form') }}">Crear Boleto</a>
             </div>
-            <div class="row">
-              <div class="pull-right">
-              </div>
-            </div> 
+            
             <div class="table-responsive">
               <table class="table">
                 <thead class="text-primary">
@@ -37,6 +38,7 @@
                   <th>
                     Valor
                   </th>
+                  <th width="280px">Configuracion</th>
                 </thead>
                 <tbody>
                 @foreach($ticket as $value)
@@ -60,6 +62,14 @@
                       <td class="text-primary">
                       {{ $value->total }}
                       </td>
+                      <td>
+                      @can('eliminar-boleto')
+                        {!! Form::open(['method' => 'POST','route' => ['ticket.destroy', $value->id],'style'=>'display:inline']) !!}
+                              {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::close() !!}
+                      @endcan
+                      </td>
+                     
                     </tr>
                 @endforeach
                 </tbody>

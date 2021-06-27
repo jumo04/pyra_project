@@ -9,13 +9,15 @@
               <p>{{ $message }}</p>
           </div>
       @endif
+      @can('eliminar-todo')
         <div class="col-lg-12 col-md-12 col-sm-12">
           <div class="col-12 text-right">
             <a class="btn btn-sm btn-primary" href="{{ route('delete_all') }}">Eliminar Todo</a>
           </div>  
         </div>
+        @endcan
         <div class="col-lg-3 col-md-6 col-sm-6">
-           
+        
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">

@@ -129,5 +129,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/eliminar-rol/{id}', 
 	[App\Http\Controllers\RoleController::class, 'destroy'
 		])->name('roles.destroy');
+	Route::post('/eliminar-boleto/{id}', 
+		[App\Http\Controllers\TicketController::class, 'destroy'
+			])->name('ticket.destroy');
 });
 

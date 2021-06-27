@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\History;
+use App\Models\Lottery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,28 +18,36 @@ class HistoryController extends Controller
     }
 
     public function index(Request $request) {
-        $places = DB::select('select * from places');
-        return view('history' , ['place' => $places]);
+        $lotteries = Lottery::all();
+        return view('history' , compact('lotteries'));
       }
 
     public function show(Request $request) {
-        $history = DB::select('select * from history');
-        return view('history', ['history' => $history]);
+        $histories = History::all();
+        return view('history', compact( 'histories'));
     }
 
     public function store(Request $request) {
 
         // Form validation
         $this->validate($request, [
-            'day',
-            'total_count' => 'required',
+            'day'  => 'required',
             'total' => 'required',
-            'winner',
-            'place_id' => 'required'
+            'winner'  => 'required',
+            'lottery_id' => 'required'
          ]);
 
         //  Store data in database
         History::create($request->all());
+
+        $history = new History();
+        $history->day = $request->get('day');
+        $history->total = $request->get('total');
+        $history->winner = $request->get('winner');
+        $lottery = Lottery::find($request->input('lottery_id'));
+
+        $history->lottery()->save($lottery);
+
 
         // 
         return back()->with('success' , 'Historia actualizado');
