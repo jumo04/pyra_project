@@ -15,6 +15,12 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table">
+              @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+              @endif
+
                 <thead class=" text-primary">
                   <th>
                     Numero

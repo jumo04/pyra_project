@@ -17,6 +17,12 @@
                 </div> 
               </div>
               <div class="table-responsive">
+              @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+              @endif
+
                 <table class="table">
                   <thead class=" text-primary">
                     <tr>
@@ -43,7 +49,11 @@
                       {{ $value-> name }}
                       </td>
                       <td>
-                      {{ $value-> block }}
+                      @if( $value-> block == 0)
+                        No
+                      @elseif ( $value-> block == 1)
+                        Si
+                      @endif
                       </td>
                       <td>
                         
@@ -51,7 +61,6 @@
                       <td>
                       <td>
                         <a class="btn btn-primary" href="{{ route('lotteries.edit',$value->id) }}">Editar</a>
-                        
                         </td>
                       </td>
                     </tr>

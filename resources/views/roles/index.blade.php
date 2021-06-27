@@ -7,14 +7,14 @@
       <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Usuarios: </h4>
+              <h4 class="card-title">Roles: </h4>
               <p class="card-category"> </p>
             </div>
             <div class="card-body">
               <div class="row">
-              <div class="pull-right">
+              <div class="col-12 text-right">
                   @can('rol-create')
-                      <a class="btn btn-success" href="{{ route('roles.create') }}"> Crear Rol</a>
+                      <a class="btn btn-success" href="{{ route('roles.create') }}">Crear Rol</a>
                   @endcan
                  </div>
               </div>
@@ -40,7 +40,7 @@
                           <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
                         @endcan
                         @can('rol-delete')
-                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+                            {!! Form::open(['method' => 'Elminar','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
                                   {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
                         @endcan

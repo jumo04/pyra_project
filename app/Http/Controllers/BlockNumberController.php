@@ -21,7 +21,7 @@ class BlockNumberController extends Controller
     } 
 
     public function deblock(Request $request) {
-        $numbers = Number::pluck('num','id')->where('block', 0);
+        $numbers = Number::where('block', 1)->pluck('num', 'id');
         return view('forms.deblock', compact('numbers'));
     } 
 
@@ -31,7 +31,7 @@ class BlockNumberController extends Controller
        /*  */
         foreach ($request->input('num') as $value) {
             $validator = Validator::make(['data' => $value], 
-                ['data' => 'nullable|numeric|required|between:2,4']);
+                ['data' => 'nullable|numeric|required']);
         }
         if ($validator->fails()) {
             return back()->withErrors($validator->errors());
@@ -40,7 +40,7 @@ class BlockNumberController extends Controller
          $numbers = DB::table('numbers')->pluck('num')->toArray();
          foreach ($request->input('num') as $value) {
             if (!in_array($value, $numbers)) {
-                $number = Number::create(['num' => $value]);
+                $number = Number::create(['num' => $value, 'total_count' => 0]);
                 $number['block'] = true;
                 $number->save();
             }else {
@@ -50,7 +50,7 @@ class BlockNumberController extends Controller
                 $number->save();
             }
          }
-        return back()->with('success');
+         return redirect()->route('show_number')->with('success','El número ha sido bloqueado');
     }
 
     public function deblock_number(Request $request) {
@@ -58,23 +58,24 @@ class BlockNumberController extends Controller
         // Form validation
         foreach ($request->input('num') as $value) {
             $validator = Validator::make(['data' => $value], 
-                ['data' => 'nullable|numeric|required|between:2,4']);
+                ['data' => 'nullable|numeric|required']);
         }
         if ($validator->fails()) {
             return back()->withErrors($validator->errors());
         } 
 
          $numbers = DB::table('numbers')->pluck('num')->toArray();
-
          foreach ($request->input('num') as $value) {
-            if (in_array($value, $numbers)) {
-                $number = Number::where('num', $value)->get()->first();
-                $number['block'] = false;
+            $num = Number::find($value)->num;
+            if (!empty($num)) {
+                $number = Number::find($value);
+                $number->block = false;
                 $number->save();
             }
          }
 
-        return back()->with('success');
+         return redirect()->route('show_number')->with('success','El número se ha desbloqueado');
+
     }
     
 }
