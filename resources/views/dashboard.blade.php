@@ -4,8 +4,18 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
+      @if ($message = Session::get('success'))
+          <div class="alert alert-success">
+              <p>{{ $message }}</p>
+          </div>
+      @endif
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-12 text-right">
+            <a class="btn btn-sm btn-primary" href="{{ route('delete_all') }}">Eliminar Todo</a>
+          </div>  
+        </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
-
+           
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
@@ -14,7 +24,7 @@
                 <i class="material-icons">store</i>
               </div>
               <p class="card-category">Total Dinero Jugado</p>
-              <h3 class="card-title">{{ $total_value }}</h3>
+              <h3 class="card-title">{{ $total_value ?? '' }}</h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -30,7 +40,7 @@
                 <i class="material-icons">info_outline</i>
               </div>
               <p class="card-category">Boletos jugados</p>
-              <h3 class="card-title">{{ $total_tickets }} </h3>
+              <h3 class="card-title">{{ $total_tickets ?? '' }} </h3>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -78,9 +88,7 @@
         </div>
       </div>
 
-      <div class="col-12 text-right">
-        <a class="btn btn-sm btn-primary" href="{{ route('lotteries.create') }}">Crear Loteria</a>
-      </div> 
+      
       <div class="row">
         <div class="col-lg-3 col-sm-none">
         </div>

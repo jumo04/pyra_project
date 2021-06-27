@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Number;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 
 class HomeController extends Controller
@@ -31,5 +35,19 @@ class HomeController extends Controller
         $numbers = DB::select('select * from numbers');
         $total_tickets = count($tickets);
         return view('dashboard', ['total_value' => $total_value, 'total_tickets' => $total_tickets]);
+    }
+
+    public function delete_all()
+    {
+        $tickets = Ticket::all();
+        $numbers = Number::all();
+ 
+        foreach ($tickets as $value) {
+            $value->delete();
+        }
+        foreach ($numbers as $value) {
+            $value->delete();
+        }
+        return redirect('dashboard')->with('success','Los boletos y loterias han sido eliminados');
     }
 }

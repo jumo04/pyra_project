@@ -16,6 +16,11 @@
                   <a  class="btn btn-sm btn-primary" href="{{ route('users.create') }}">Crear Usuario</a>
                 </div> 
               </div>
+              @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+              @endif
               <div class="table-responsive">
                 <table class="table">
                   <thead class=" text-primary">
@@ -33,7 +38,7 @@
                       Roles
                     </th>
                     <th class="text-right">
-                      Action
+                      Accion
                     </th>
                   </tr></thead>
                   <tbody>

@@ -58,6 +58,8 @@
                 @endforeach
                 </tbody>
               </table>
+              {!! $numbers->render() !!}
+
             </div>
           </div>
         </div>

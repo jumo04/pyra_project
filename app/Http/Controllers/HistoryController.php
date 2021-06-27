@@ -41,7 +41,7 @@ class HistoryController extends Controller
         History::create($request->all());
 
         // 
-        return back()->with('success');
+        return back()->with('success' , 'Historia actualizado');
     }
 
     public function update(Request $request) {

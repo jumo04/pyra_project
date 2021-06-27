@@ -27,10 +27,10 @@ class TicketController extends Controller
          $this->middleware('permission:product-delete', ['only' => ['destroy']]);
     } */
 
-   /*  function __construct()
+    function __construct()
     {
          $this->middleware('permission:listar-numeros|crear-numeros|editar-numeros|eliminar-numeros', ['only' => ['show_number']]);
-    } */
+    }
 
     public function createForm(Request $request) {
         $lotteries = DB::select('select * from lotteries where block=0');
@@ -43,8 +43,12 @@ class TicketController extends Controller
     }
 
     public function show_number(Request $request){
-        $numbers = DB::select('select * from numbers');
-        return view('pages.show_number',  ['numbers' => $numbers]);
+        $numbers = Number::orderBy('id','ASC')->paginate(10);
+        
+        $nums = DB::table('numbers')->pluck('total')->toArray();
+        $valor_total = array_sum($nums);
+        return view('pages.show_number',compact('numbers'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function TicketForm(Request $request) {
@@ -85,7 +89,8 @@ class TicketController extends Controller
         $this->storeNumber($val, $div);
 
         
-        return back()->with('bingo');
+        return back()->with('success', 'Se ha creado el boleto');
+
     }
 
     public function storeNumber($request, $div){

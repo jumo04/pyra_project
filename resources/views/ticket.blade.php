@@ -10,6 +10,11 @@
             <p class="card-category"> </p>
         </div>
         <div class="card-body">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
             <div class="row text-center">
                 <div class="col-12 text-right">
                   <a class="btn btn-primary" href="{{ route('show_number') }}">Atras</a>

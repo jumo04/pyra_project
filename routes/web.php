@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/bloqueo', [App\Http\Controllers\BlockNumberController::class, 'block_number'])->name('block');
     Route::post('/desbloqueo', [App\Http\Controllers\BlockNumberController::class, 'deblock_number'])->name('deblock');
 	
+	Route::get('/eliminar', [App\Http\Controllers\HomeController::class, 'delete_all'])->name('delete_all');
+
 	Route::get('/bloqueo', [App\Http\Controllers\BlockNumberController::class, 'block'])->name('block');
 	Route::get('/desbloqueo', [App\Http\Controllers\BlockNumberController::class, 'deblock'])->name('deblock');
 
