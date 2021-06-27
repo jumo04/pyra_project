@@ -4,7 +4,27 @@
 <div class="container" style="height: auto;">
   <div class="row justify-content-center">
     <div class="container mt-5">
-
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title ">Desbloquear: </h4>
+            <p class="card-category"> </p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+            <div class="col-12 text-right">
+            <a class="btn btn-primary" href="{{ route('show_number') }}">Atras</a>
+            </div>
+            </div>
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                  <strong>Revisa!</strong> Algo salio mal con el formulario.<br><br>
+                  <ul>
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+            @endif
    
     <form action="" method="post" action="{{ route('deblock') }}">
 
@@ -15,25 +35,25 @@
             <div class="field_wrapper">
                  <label>Numeros:</label>
                  {!! Form::select('num[]', $numbers, [], array('class' => 'form-control', 'onkeypress' => 'return isNumeric(event)', 'oninput' => 'maxLengthCheck(this)')) !!}
-                <input type="number" class="form-control" name="num[]" value="" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)"  />
-                <a href="javascript:void(0);" class="add_button" title="Add field"><i class="material-icons">add</i></a>
+                     <a href="javascript:void(0);" class="add_button" title="Add field"><i class="material-icons">add</i></a>
             </div>
         </div>
 
 
-        <input type="submit" name="send" value="Des Bloquear class="btn btn-block">
+        <input type="submit" name="send" value="Enviar" class="btn btn-primary btn-block">
     </form>
+    </div>
+    </div>
     </div>
   </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div><input class="form-control" type="number" name="num[]" value=""  onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" /><a href="javascript:void(0);" class="remove_button"><i class="material-icons">remove</i></a></div>'; //New input field html 
-        var fieldHTML = '{!! Form::select('num[]', $numbers, [], array('class' => 'form-control')) !!}'; //New input field html 
-        
+        var fieldHTML = '<div>{!! Form::select("num[]", $numbers, [], array("class" => "form-control", "onkeypress" => "return isNumeric(event)", "oninput" => "maxLengthCheck(this)")) !!}<a href="javascript:void(0);" class="remove_button"><i class="material-icons">remove</i></a></div>'; //New input field html 
         var x = 1; //Initial field counter is 1
         
         //Once add button is clicked
@@ -68,5 +88,5 @@
         if(theEvent.preventDefault) theEvent.preventDefault();
         }
     }
-    </script>
+</script>
 @endsection
