@@ -20,7 +20,14 @@
                     <p>{{ $message }}</p>
                 </div>
               @endif
-
+                <div class='col-md-12 text-right' >
+                  <h4 >
+                  Total Facturado: 
+                  </h4>
+                  <h5 class='text-primary'>
+                    {{ $valor_total }}
+                  </h5>
+                </div>
                 <thead class=" text-primary">
                   <th>
                     Numero
@@ -36,7 +43,7 @@
                   </th>
                 </thead>
                 <tbody>
-                @foreach($numbers as $key => $value)
+                @foreach($numbers as $value)
                     <tr>
                       <td>
                       {{ $value-> num }}
@@ -44,7 +51,7 @@
                       <td>
                       {{ $value-> total_count }}
                       </td>
-                      <td>
+                      <td class="text-primary">
                       {{ $value-> total }}
                       </td>
                       <td>

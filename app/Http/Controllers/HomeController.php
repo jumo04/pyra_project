@@ -6,6 +6,7 @@ use App\Models\Number;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 class HomeController extends Controller
@@ -39,15 +40,27 @@ class HomeController extends Controller
 
     public function delete_all()
     {
-        $tickets = Ticket::all();
         $numbers = Number::all();
- 
-        foreach ($tickets as $value) {
+        $ticket = Ticket::all();
+
+        $nums = DB::table('numbers')->pluck('total')->toArray();
+        $valor_total = array_sum($nums);
+
+        $timenow = date('d-m');
+        $aweek = date('d-m', strtotime('-1 week', strtotime(date('d-m-Y'))));
+    
+
+        // share data to view
+        $pdf = PDF::loadView('pdf_view',compact('ticket', 'numbers', 'valor_total'));
+
+        // download PDF file with download method
+        return $pdf->download('Reporte Semanal'.$timenow . 'hasta'. $aweek);
+        /* foreach ($ticket as $value) {
             $value->delete();
         }
         foreach ($numbers as $value) {
             $value->delete();
-        }
+        } */
         return redirect('dashboard')->with('success','Los boletos y loterias han sido eliminados');
     }
 }

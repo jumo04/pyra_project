@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class TicketController extends Controller
 {
@@ -47,7 +48,7 @@ class TicketController extends Controller
         
         $nums = DB::table('numbers')->pluck('total')->toArray();
         $valor_total = array_sum($nums);
-        return view('pages.show_number',compact('numbers'))
+        return view('pages.show_number', compact('numbers', 'valor_total'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 

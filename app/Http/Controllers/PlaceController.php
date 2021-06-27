@@ -24,6 +24,6 @@ class PlaceController extends Controller
         Place::create($request->all());
 
         // 
-        return back()->with('success');
+        return back()->with('success', 'Se creo un lugar');
     }
 }
