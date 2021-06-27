@@ -33,9 +33,9 @@
         </a>
       </li>
       @endcan
-      @can('listar-loterias')
+      @can('loteria-listar')
       <li class="nav-item{{ $activePage == 'loterry' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('lottery.form') }}">
+        <a class="nav-link" href="{{ route('lotteries.index') }}">
           <i class="material-icons">ballot</i>
             <p>{{ __('Loteria') }}</p>
         </a>

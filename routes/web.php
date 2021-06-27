@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/crear-loteria', 
 	[App\Http\Controllers\LotteryController::class, 'create'
 		])->name('lotteries.create');
-	Route::get('/editar-loteria', 
+	Route::get('/editar-loteria/{id}', 
 	[App\Http\Controllers\LotteryController::class, 'edit'
 		])->name('lotteries.edit');
 	Route::post('/editar-loteria/{id}', 

@@ -7,7 +7,7 @@
       <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title ">Usuarios: </h4>
+              <h4 class="card-title ">Loteria: </h4>
               <p class="card-category"> </p>
             </div>
             <div class="card-body">
@@ -26,17 +26,17 @@
                   </ul>
                 </div>
               @endif
-              {!! Form::model($user, ['method' => 'POST','route' => ['lotteries.update', $user->id]]) !!}              
+              {!! Form::model($lottery, ['method' => 'POST','route' => ['lotteries.update', $lottery->id]]) !!}              
               <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group">
                           <strong>Nombre:</strong>
-                          {!! Form::text('name', null, array('placeholder' => 'Nombre','class' => 'form-control')) !!}
+                          {!! Form::text('name', $lottery->name, array('placeholder' => 'Nombre','class' => 'form-control')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group" >
                         <strong>Fecha de Cierre:</strong>
-                          {!! Form::text('close', null, array('placeholder' => 'Fecha de cierre','class' => 'form-control datepicker')) !!}
+                          {!! Form::text('close', $lottery->close, array('placeholder' => 'Fecha de cierre','class' => 'form-control datepicker')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">

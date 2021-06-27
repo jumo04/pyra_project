@@ -19,7 +19,7 @@ class LotteryController extends Controller
 
     public function index(Request $request)
     {
-        $loterries = Lottery::orderBy('id','DESC')->paginate(5);
+        $loterries = Lottery::orderBy('id','ASC')->paginate(5);
         return view('lotteries.index',compact('loterries'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
 
@@ -36,7 +36,8 @@ class LotteryController extends Controller
 
         // Form validation
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'block' => 'required'
          ]);
         
          $lotteries = new Lottery();
@@ -55,4 +56,35 @@ class LotteryController extends Controller
         // 
         return back()->with('success');
     }
+
+    public function edit($id)
+    {   
+        $lottery = Lottery::find($id);
+        return view('lotteries.edit', compact('lottery'));
+    }
+
+    
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'block' => 'required'
+        ]);
+
+        $lotteries = Lottery::find($id);
+        $lotteries->name = $request->get('name');
+        $lotteries->close = $request->get('close');
+        $val = $request->get('block');
+
+        if($val == "on"){
+            $lotteries->block = true;
+        }else{
+            $lotteries->block = false;
+        }
+
+        $lotteries->save();
+
+        return redirect()->route('lotteries.index')->with('success','Loteria actualizado');
+    }
+    
 }

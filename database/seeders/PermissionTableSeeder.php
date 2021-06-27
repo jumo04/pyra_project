@@ -32,7 +32,11 @@ class PermissionTableSeeder extends Seeder
            'rol-delete',
            'rol-list',
            'desbloquear-numero',
-           'bloquear-numero'
+           'bloquear-numero',
+           'loteria-listar',
+           'loteria-crear',
+           'loteria-editar',
+           'loteria-delete'
         ];
 
     

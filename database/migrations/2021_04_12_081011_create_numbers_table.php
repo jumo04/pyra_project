@@ -17,7 +17,7 @@ class CreateNumbersTable extends Migration
             $table->id();
             $table->string('num');
             $table->integer('total')->default(0);
-            $table->increments('total_count');
+            $table->integer('total_count');
             $table->boolean('block')->default(false);
             $table->timestamps();
         });
