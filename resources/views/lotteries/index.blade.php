@@ -30,7 +30,7 @@
                       Bloqueado
                     </th>
                     <th class="text-right">
-                      Action
+                      Acciones
                     </th>
                   </tr></thead>
                   <tbody>

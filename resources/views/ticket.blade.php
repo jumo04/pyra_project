@@ -46,11 +46,11 @@
             <div class="form-group">
                 <label>Lotería:</label>
                 <br/>
-                <div style="display:flex;">
+                <div class='col-md-12' >
                     @foreach($lot as $value)
-                    <label>{{ Form::checkbox('lottery_id[]', $value->id, false, array('class' => 'name')) }}
-                        {{ $value->name }}</label>
-                    <br/>
+                        <label>{{ Form::checkbox('lottery_id[]', $value->id, false, array('class' => 'name')) }}
+                            {{ $value->name }}</label>
+                        <br/>
                     @endforeach
                 </div>
                 </select>

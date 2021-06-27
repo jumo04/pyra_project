@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.app', ['activePage' => 'rol-management', 'titlePage' => __('Manejo de Roles')])
 
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Create New Role</h2>
+            <h2>Crear nuevo rol</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Atras</a>
         </div>
     </div>
 </div>

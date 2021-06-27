@@ -25,6 +25,14 @@
         </a>
       </li>
       @endcan
+      @can('rol-list')
+      <li class="nav-item{{ $activePage  == 'rol-management' ?  ' active' : '' }}">
+        <a class="nav-link" href="{{ route('roles.index') }}">
+          <i class="material-icons">account_box</i>
+            <p>{{ __('Roles y Permisos') }}</p>
+        </a>
+      </li>
+      @endcan
       @can('listar-numeros')
       <li class="nav-item{{ $activePage   == 'show_number' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('show_number') }}">

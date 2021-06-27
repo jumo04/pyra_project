@@ -21,7 +21,8 @@ class BlockNumberController extends Controller
     } 
 
     public function deblock(Request $request) {
-        return view('forms.deblock');
+        $numbers = Number::where('block', 0);
+        return view('forms.deblock', compact('numbers'));
     } 
 
     public function block_number(Request $request) {

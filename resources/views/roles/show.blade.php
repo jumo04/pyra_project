@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['activePage' => 'rol-management', 'titlePage' => __('Manejo de Roles')])
 
 @section('content')
 <div class="row">

@@ -33,9 +33,8 @@ class TicketController extends Controller
     } */
 
     public function createForm(Request $request) {
-        $lotteries = DB::select('select * from lotteries');
-        $places = DB::select('select * from places');
-        return view('ticket', ['lot' => $lotteries, 'place' => $places]);
+        $lotteries = DB::select('select * from lotteries where block=0');
+        return view('ticket',  ['lot' => $lotteries]);
       }
 
     public function show_ticket(Request $request){
@@ -91,13 +90,12 @@ class TicketController extends Controller
 
     public function storeNumber($request, $div){
 
-        $imp = $request;
         $numbers = DB::table('numbers')->pluck('num')->toArray();
 
         foreach ($request as $value) {
 
             if (!in_array($value, $numbers)) {
-                $number = Number::create(['num' => $value, 'total' => $div]);
+                $number = Number::create(['num' => $value, 'total' => $div, 'total_count' => 1]);
                 Log::info('el número ha sido guardado'.$value);
             } else {
                 $number = Number::where('num', $value)->get()->first();

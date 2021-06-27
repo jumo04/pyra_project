@@ -36,8 +36,7 @@ class LotteryController extends Controller
 
         // Form validation
         $this->validate($request, [
-            'name' => 'required',
-            'block' => 'required'
+            'name' => 'required'
          ]);
         
          $lotteries = new Lottery();
@@ -67,8 +66,7 @@ class LotteryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'block' => 'required'
+            'name' => 'required'
         ]);
 
         $lotteries = Lottery::find($id);
@@ -86,5 +84,5 @@ class LotteryController extends Controller
 
         return redirect()->route('lotteries.index')->with('success','Loteria actualizado');
     }
-    
+
 }
