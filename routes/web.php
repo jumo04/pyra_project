@@ -78,59 +78,29 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 	Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-	Route::get('/usuarios/crear', 
-		[App\Http\Controllers\UserController::class, 'create'
-			])->name('users.create');
-	Route::post('/crear-usuario', 
-		[App\Http\Controllers\UserController::class, 'store'
-			])->name('users.store');
-	Route::get('/loterias', 
-	[App\Http\Controllers\LotteryController::class, 'index'
-		])->name('lotteries.index');
-	Route::get('/crear-loteria', 
-	[App\Http\Controllers\LotteryController::class, 'create'
-		])->name('lotteries.create');
-	Route::get('/editar-loteria/{id}', 
-	[App\Http\Controllers\LotteryController::class, 'edit'
-		])->name('lotteries.edit');
-	Route::post('/editar-loteria/{id}', 
-	[App\Http\Controllers\LotteryController::class, 'update'
-		])->name('lotteries.update');
-	Route::get('/roles', 
-	[App\Http\Controllers\RoleController::class, 'index'
-		])->name('roles.index');
-	Route::get('/roles-mostrar/{id}', 
-	[App\Http\Controllers\RoleController::class, 'show'
-		])->name('roles.show');
-	Route::get('/crear-rol', 
-	[App\Http\Controllers\RoleController::class, 'create'
-		])->name('roles.create');
-	Route::get('/editar-rol/{id}', 
-	[App\Http\Controllers\RoleController::class, 'edit'
-		])->name('roles.edit');
-	Route::post('/crear-rol', 
-	[App\Http\Controllers\RoleController::class, 'store'
-		])->name('roles.store');
-	Route::post('/editar-rol/{id}', 
-	[App\Http\Controllers\RoleController::class, 'update'
-		])->name('roles.update');
-	Route::get('/usuarios', 
-	[App\Http\Controllers\UserController::class, 'index'
-		])->name('users.index');
-	Route::get('/editar-usuario/{id}', 
-	[App\Http\Controllers\UserController::class, 'edit'
-		])->name('users.edit');
-	Route::post('/editar-usuario/{id}', 
-	[App\Http\Controllers\UserController::class, 'update'
-		])->name('users.update');
-	Route::post('/eliminar-usuario/{id}', 
-	[App\Http\Controllers\UserController::class, 'destroy'
-		])->name('users.destroy');
-	Route::post('/eliminar-rol/{id}', 
-	[App\Http\Controllers\RoleController::class, 'destroy'
-		])->name('roles.destroy');
-	Route::post('/eliminar-boleto/{id}', 
-		[App\Http\Controllers\TicketController::class, 'destroy'
-			])->name('ticket.destroy');
+	Route::get('/usuarios/crear', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+	Route::post('/crear-usuario', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
+	Route::get('/loterias', [App\Http\Controllers\LotteryController::class, 'index'])->name('lotteries.index');
+	Route::get('/crear-loteria', [App\Http\Controllers\LotteryController::class, 'create'])->name('lotteries.create');
+	Route::get('/editar-loteria/{id}', [App\Http\Controllers\LotteryController::class, 'edit'])->name('lotteries.edit');
+	Route::post('/editar-loteria/{id}', [App\Http\Controllers\LotteryController::class, 'update'])->name('lotteries.update');
+	Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
+	Route::get('/roles-mostrar/{id}', [App\Http\Controllers\RoleController::class, 'show'])->name('roles.show');
+	Route::get('/crear-rol', [App\Http\Controllers\RoleController::class, 'create'])->name('roles.create');
+	Route::get('/editar-rol/{id}', [App\Http\Controllers\RoleController::class, 'edit'])->name('roles.edit');
+	Route::post('/crear-rol', [App\Http\Controllers\RoleController::class, 'store'])->name('roles.store');
+	Route::post('/editar-rol/{id}', [App\Http\Controllers\RoleController::class, 'update'])->name('roles.update');
+	Route::get('/usuarios', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+	Route::get('/editar-usuario/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+	Route::post('/editar-usuario/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+	Route::post('/eliminar-usuario/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+	Route::get('/historial', [App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
+	Route::get('/crear-historial', [App\Http\Controllers\HistoryController::class, 'create'])->name('history.create');
+	Route::post('/crear-historial', [App\Http\Controllers\HistoryController::class, 'store'])->name('history.store');
+	Route::get('/editar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'edit'])->name('history.edit');
+	Route::post('/editar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'update'])->name('history.update');
+	Route::post('/eliminar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'destroy'])->name('history.destroy');
+	Route::post('/eliminar-rol/{id}', [App\Http\Controllers\RoleController::class, 'destroy'])->name('roles.destroy');
+	Route::post('/eliminar-boleto/{id}', [App\Http\Controllers\TicketController::class, 'destroy'])->name('ticket.destroy');
 });
 

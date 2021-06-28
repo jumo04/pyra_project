@@ -10,21 +10,30 @@ class HistoryController extends Controller
 {
     //
 
-    function __construct()
+    /* function __construct()
     {
-         $this->middleware('permission:historia-listar|historia-crear|historia-editar|historia-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:historia-crear', ['only' => ['create','store']]);
-         $this->middleware('permission:historia-editar', ['only' => ['edit','update']]);
+         $this->middleware('permission:listar-historial|crear-historial|editar-historial|eliminar-historial', ['only' => ['index','show']]);
+         $this->middleware('permission:crear-historial', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-historial', ['only' => ['edit','update']]);
+         $this->middleware('permission:eliminar-historial', ['only' => ['destroy']]);
     }
-
+ */
     public function index(Request $request) {
-        $lotteries = Lottery::all();
-        return view('history' , compact('lotteries'));
+        $histories = History::orderBy('id','ASC')->paginate(5);
+        return view('history.index',compact('histories'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
       }
 
-    public function show(Request $request) {
-        $histories = History::all();
-        return view('history', compact( 'histories'));
+    public function create()
+    {
+        $lotteries = Lottery::pluck('name','id')->all();
+        return view('history.create',compact('lotteries'));
+    }
+  
+
+    public function show($id) {
+        $histories = History::find($id);
+        return view('history.show', compact( 'histories'));
     }
 
     public function store(Request $request) {
@@ -37,10 +46,8 @@ class HistoryController extends Controller
             'lottery_id' => 'required'
          ]);
 
-        //  Store data in database
-        History::create($request->all());
-
         $history = new History();
+        
         $history->day = $request->get('day');
         $history->total = $request->get('total');
         $history->winner = $request->get('winner');
@@ -50,10 +57,15 @@ class HistoryController extends Controller
 
 
         // 
-        return back()->with('success' , 'Historia actualizado');
+        return back()->with('success' , 'Historia creada con exito');
     }
 
-    public function update(Request $request) {
+    public function edit(Request $request, $id) {
+        $history = History::find($id);
+        return view('history.edit', compact('history'));
+      }
+
+    public function update(Request $request, $id) {
 
         // Form validation
         $this->validate($request, [
@@ -61,14 +73,30 @@ class HistoryController extends Controller
             'total_count' => 'required',
             'total' => 'required',
             'winner',
-            'place_id' => 'required'
+            'lottery_id' => 'required'
          ]);
 
         //  Store data in database
         History::create($request->all());
 
+
+        $history = History::find($id);
+        $history->day = $request->get('day');
+        $history->total = $request->get('total');
+        $history->winner = $request->get('winner');
+        $lottery = Lottery::find($request->input('lottery_id'));
+
+        $history->lottery()->save($lottery);
+
+
         // 
-        return back()->with('success');
+        redirect()->route('history.index')->with('success' , 'Historia creada con exito');
+    }
+
+    public function destroy($id)
+    {
+        DB::table("history")->where('id',$id)->delete();
+        return redirect()->route('histories.index')->with('success','historial eliminado exitosamente');
     }
 
 

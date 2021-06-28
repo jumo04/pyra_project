@@ -16,7 +16,7 @@ class PermissionTableSeeder extends Seeder
     {
         $permissions = [
            'listar-numeros',
-           'crea-numeros',
+           'crear-numeros',
            'editar-numeros',
            'eliminar-numeros',
            'listar-lugares',
@@ -24,7 +24,11 @@ class PermissionTableSeeder extends Seeder
            'editar-lugares',
            'eliminar-lugares',
            'listar-usuarios',
-           'crea-usuarios',
+           'listar-historial',
+           'crear-historial',
+           'editar-historial',
+           'eliminar-historial',
+           'crear-usuarios',
            'editar-usuarios',
            'eliminar-usuarios',
            'rol-create',
@@ -38,7 +42,8 @@ class PermissionTableSeeder extends Seeder
            'loteria-editar',
            'loteria-delete',
            'eliminar-todo',
-           'eliminar-boleto'
+           'eliminar-boleto',
+           'listar-boletos'
         ]; 
 
     

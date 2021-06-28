@@ -13,7 +13,7 @@
             <div class="card-body">
               <div class="row">
                   <div class="col-12 text-right">
-                    <a class="btn btn-primary" href="{{ route('lotteries.index') }}">Atras</a>
+                    <a class="btn btn-primary" href="{{ route('history.index') }}">Atras</a>
                   </div>
               </div>
               @if (count($errors) > 0)
@@ -26,7 +26,7 @@
                   </ul>
                 </div>
               @endif
-              {!! Form::open(array('route' => 'lottery.store','method'=>'POST')) !!}
+              {!! Form::open(array('route' => 'history.store','method'=>'POST')) !!}
               <div class="row">
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group">
@@ -46,10 +46,11 @@
                           {!! Form::text('day', null, array('placeholder' => 'Fecha del día del ganador','class' => 'form-control datepicker')) !!}
                       </div>
                   </div>
+
                   <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <strong>Bloquear:</strong>
-                          <label>{{ Form::checkbox('block', null, false ) }}</label>
+                      <div class="form-group" >
+                        <strong>Loteria: </strong>
+                         {!! Form::select('lottery_id', $lotteries, [], array('class' => 'form-control')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -66,7 +67,7 @@
 <script>
 $(document).ready(function(){
   $('.datepicker').datetimepicker({
-      format: 'HH:mm'
+      format: 'dd-mm-YYYY'
     });
   });    
 </script>

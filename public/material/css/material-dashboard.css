@@ -14952,6 +14952,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     font-weight: 200;
     z-index: 9999;
   }
+
+  
   .sidebar-mini .sidebar .logo a.logo-normal {
     opacity: 0;
     -webkit-transform: translate3d(-25px, 0, 0);
@@ -18134,6 +18136,13 @@ Copyright (c) 2015 Daniel Eden
     -o-transform: translate3d(260px, 0, 0);
     -ms-transform: translate3d(260px, 0, 0);
     transform: translate3d(260px, 0, 0);
+  }
+  .sidebar .nav li a{
+    color: white;
+  }
+
+  .sidebar .logo .simple-text{
+    color: white;
   }
   .menu-on-left .sidebar,
   .menu-on-left .off-canvas-sidebar {

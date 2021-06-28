@@ -28,7 +28,7 @@
       @can('rol-list')
       <li class="nav-item{{ $activePage  == 'rol-management' ?  ' active' : '' }}">
         <a class="nav-link" href="{{ route('roles.index') }}">
-          <i class="material-icons">account_box</i>
+          <i class="material-icons">construction</i>
             <p>{{ __('Roles y Permisos') }}</p>
         </a>
       </li>
@@ -42,24 +42,26 @@
       </li>
       @endcan
       @can('loteria-listar')
-      <li class="nav-item{{ $activePage == 'loterry' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage == 'lotteries' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('lotteries.index') }}">
           <i class="material-icons">ballot</i>
             <p>{{ __('Loteria') }}</p>
         </a>
       </li>
-      @endcan 
+      @endcan
+      @can('listar-boletos') 
       <li class="nav-item{{ $activePage  == 'show_ticket' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('show_ticket') }}">
-          <i class="material-icons">ticket</i>
+          <i class="material-icons">local_play</i>
             <p>{{ __('Boleto') }}</p>
         </a>
       </li>
-      @can('listar-lugares')
-      <li class="nav-item{{ $activePage == 'place' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('place.form') }}">
-          <i class="material-icons">location_ons</i>
-            <p>{{ __('Agregar Lugar') }}</p>
+      @endcan
+      @can('listar-historial')
+      <li class="nav-item{{ $activePage == 'histories' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('history.index') }}">
+          <i class="material-icons">radio_button_checked</i>
+            <p>{{ __('Historial') }}</p>
         </a>
       </li>
       @endcan

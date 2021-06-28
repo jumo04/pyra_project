@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'lotteries', 'titlePage' => __('Loterias')])
+@extends('layouts.app', ['activePage' => 'histories', 'titlePage' => __('Historial')])
 
 @section('content')
 <div class="content">
@@ -13,7 +13,7 @@
             <div class="card-body">
               <div class="row">
                <div class="col-12 text-right">
-                  <a class="btn btn-sm btn-primary" href="{{ route('lotteries.create') }}">Crear Loteria</a>
+                  <a class="btn btn-sm btn-primary" href="{{ route('history.create') }}">Crear historial</a>
                 </div> 
               </div>
               <div class="table-responsive">
@@ -22,53 +22,51 @@
                     <p>{{ $message }}</p>
                 </div>
               @endif
-
                 <table class="table">
                   <thead class=" text-primary">
                     <tr>
                     <th>
-                      No
+                      Ganador
                     </th>
                     <th>
-                      Nombre
+                      Total
                     </th>
                     <th>
-                      Bloqueado
+                      Día
                     </th>
                     <th class="text-right">
                       Acciones
                     </th>
                   </tr></thead>
                   <tbody>
-                  @foreach($loterries as $key => $value)
+                  @foreach($histories as $value)
                     <tr>
                       <td>
-                        {{ ++$i}}
+                      {{ $value-> winner }}
                       </td>
                       <td>
-                      {{ $value-> name }}
+                      {{ $value-> total }}
                       </td>
                       <td>
-                      @if( $value-> block == 0)
-                        No
-                      @elseif ( $value-> block == 1)
-                        Si
-                      @endif
+                      {{ $value-> day }}
                       </td>
                       <td>
-                        
-                      </td>
-                      <td>
-                      <td>
-                        <a class="btn btn-primary" href="{{ route('lotteries.edit',$value->id) }}">Editar</a>
-                        </td>
+                        @can('editar-historial')
+                          <a class="btn btn-primary" href="{{ route('history.edit',$value->id) }}">Editar</a>
+                        @endcan
+                        @can('eliminar-historial')
+                            {!! Form::open(['method' => 'POST','route' => ['history.destroy', $value->id],'style'=>'display:inline']) !!}
+                                  {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::close() !!}
+                        @endcan
                       </td>
                     </tr>
-                @endforeach 
+                  @endforeach 
                   </tbody>
                 </table>
-                {!! $loterries->render() !!}
               </div>
+
+              {!! $histories->render() !!}
             </div>
           </div>
       </div>

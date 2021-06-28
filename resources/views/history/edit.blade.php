@@ -18,7 +18,7 @@
               </div>
               @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                  <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                  <strong>Alerta!</strong> Hubo un problema con esto por favor revisar<br><br>
                   <ul>
                     @foreach ($errors->all() as $error)
                       <li>{{ $error }}</li>
@@ -26,8 +26,8 @@
                   </ul>
                 </div>
               @endif
-              {!! Form::model($lottery, ['method' => 'POST','route' => ['lotteries.update', $lottery->id]]) !!}              
-              <div class="col-xs-12 col-sm-12 col-md-12">
+              {!! Form::model($history, ['method' => 'POST','route' => ['history.update', $history->id]]) !!}              
+                 <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group">
                           <strong>Nombre:</strong>
                           {!! Form::text('name', $lottery->name, array('placeholder' => 'Nombre','class' => 'form-control')) !!}
@@ -36,13 +36,38 @@
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group" >
                         <strong>Fecha de Cierre:</strong>
-                          {!! Form::text('close', $lottery->close, array('placeholder' => 'Fecha de cierre','class' => 'form-control datepicker')) !!}
+                          {!! Form::text('close', $lottery->close, array('placeholder' => 'Fecha de cierre', 'class' => 'form-control datepicker')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group">
                           <strong>Bloquear:</strong>
                           <label>{{ Form::checkbox('block', null, false ) }}</label>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="form-group">
+                          <strong>Ganador:</strong>
+                          {!! Form::text('winner', $history->winner, array('placeholder' => 'Ganador','class' => 'form-control')) !!}
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="form-group">
+                          <strong>Total:</strong>
+                          {!! Form::text('total', $history->total, array('placeholder' => 'Total Ganado','class' => 'form-control')) !!}
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="form-group" >
+                        <strong>Cuando Gano:</strong>
+                          {!! Form::text('day', $history->day, array('placeholder' => 'Fecha del día del ganador','class' => 'form-control datepicker')) !!}
+                      </div>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                      <div class="form-group" >
+                        <strong>Loteria: </strong>
+                         {!! Form::select('lottery_id', $lotteries, $history->lotteries()->name, array('class' => 'form-control')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12 text-center">
