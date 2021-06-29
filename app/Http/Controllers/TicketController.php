@@ -34,7 +34,7 @@ class TicketController extends Controller
     }
 
     public function createForm(Request $request) {
-        $lotteries = DB::select('select * from lotteries where block=0');
+        $lotteries = DB::select('select * from lotteries where block=false');
         return view('ticket',  ['lot' => $lotteries]);
       }
 

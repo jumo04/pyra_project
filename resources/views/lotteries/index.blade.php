@@ -49,9 +49,9 @@
                       {{ $value-> name }}
                       </td>
                       <td>
-                      @if( $value-> block == 0)
+                      @if( $value-> block == false)
                         No
-                      @elseif ( $value-> block == 1)
+                      @elseif ( $value-> block == true)
                         Si
                       @endif
                       </td>
@@ -61,6 +61,7 @@
                       <td>
                       <td>
                         <a class="btn btn-primary" href="{{ route('lotteries.edit',$value->id) }}">Editar</a>
+
                         </td>
                       </td>
                     </tr>

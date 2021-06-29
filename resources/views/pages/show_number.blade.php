@@ -55,9 +55,9 @@
                       {{ $value-> total }}
                       </td>
                       <td>
-                      @if( $value-> block == 0)
+                      @if( $value-> block == false)
                         No
-                      @elseif ( $value-> block == 1)
+                      @elseif ( $value-> block == true)
                         Si
                       @endif
                       </td>
