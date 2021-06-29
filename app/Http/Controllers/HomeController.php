@@ -55,12 +55,12 @@ class HomeController extends Controller
 
         // download PDF file with download method
         return $pdf->download('Reporte Semanal'.$timenow . 'hasta'. $aweek);
-        /* foreach ($ticket as $value) {
+        foreach ($ticket as $value) {
             $value->delete();
         }
         foreach ($numbers as $value) {
             $value->delete();
-        } */
+        }
         return redirect('dashboard')->with('success','Los boletos y loterias han sido eliminados');
     }
 }

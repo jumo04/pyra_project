@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use PDF;
 
 class TicketController extends Controller
 {
@@ -62,13 +61,13 @@ class TicketController extends Controller
         ]);
 
         $val = $request->input('num');
-        $validator->after(function ($validator, $val) {
-            if ($this->ifBlock($val)) {
-                if ($validator->fails()) {
-                    return back()->withErrors($validator->errors());
+            if (!$this->ifBlock($val)) {
+                $composs = '';
+                foreach ($val as $value) {
+                    $composs = $composs . ' ' . $value;
                 }
-            }
-        });        
+                return back()->with('error', 'Los números '. $composs . ' estan bloqueados');
+            };        
 
         $ticket = new Ticket();
         $ticket->name = $request->get('name');
@@ -115,22 +114,21 @@ class TicketController extends Controller
     }
 
     public function ifBlock($request){
+        
         $numbers = DB::table('numbers')->pluck('num')->toArray();
         foreach ($request as $value) {
             if (!in_array($value, $numbers)) {
-
+                
             } else {
                 $number = Number::where('num', $value)->get()->first();
                 $prove = $number['block'];
-                if($prove == 1){
+                if($prove == true){
                     return false;
                 }else {
                     return true;
                 }
-                //dividir el precio por numero para agregarlo al numero y asi sumarlo
-                Log::info('el numero ha sido actualizado'.$value);
             } 
-        }
+        } 
     }
 
     public function destroy($id)

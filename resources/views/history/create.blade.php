@@ -7,7 +7,7 @@
       <div class="col-md-6">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title ">Crear Loteria: </h4>
+              <h4 class="card-title ">Crear Historial: </h4>
               <p class="card-category"> </p>
             </div>
             <div class="card-body">

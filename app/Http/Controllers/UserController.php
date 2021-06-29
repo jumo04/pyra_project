@@ -45,7 +45,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        $places = Place::pluck('id','name')->all();
+        $places = Place::pluck('name','id')->all();
         return view('users.create',compact('roles', 'places') );
     }
 
