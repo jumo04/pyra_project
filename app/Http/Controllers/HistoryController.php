@@ -53,16 +53,18 @@ class HistoryController extends Controller
         $history->winner = $request->get('winner');
         $lottery = Lottery::find($request->input('lottery_id'));
 
+        $history->save();
         $history->lottery()->save($lottery);
 
-
         // 
-        return back()->with('success' , 'Historia creada con exito');
+        return redirect()->route('history.index')->with('success' , 'Historia creada con exito');
     }
 
     public function edit(Request $request, $id) {
         $history = History::find($id);
-        return view('history.edit', compact('history'));
+        $lotteries = Lottery::pluck('name','id')->all();
+
+        return view('history.edit', compact('history', 'lotteries'));
       }
 
     public function update(Request $request, $id) {
@@ -88,15 +90,14 @@ class HistoryController extends Controller
 
         $history->lottery()->save($lottery);
 
-
         // 
-        redirect()->route('history.index')->with('success' , 'Historia creada con exito');
+        return redirect()->route('history.index')->with('success' , 'Historia creada con exito');
     }
 
     public function destroy($id)
     {
-        DB::table("history")->where('id',$id)->delete();
-        return redirect()->route('histories.index')->with('success','historial eliminado exitosamente');
+        DB::table("histories")->where('id',$id)->delete();
+        return redirect()->route('history.index')->with('success','historial eliminado exitosamente');
     }
 
 

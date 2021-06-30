@@ -43,7 +43,7 @@
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group" >
                         <strong>Cuando Gano:</strong>
-                          {!! Form::text('day', null, array('placeholder' => 'Fecha del día del ganador','class' => 'form-control datepicker')) !!}
+                          {!! Form::text('day', null, array('placeholder' => 'Fecha del día del ganador','class' => 'form-control datepicker', 'id'=> 'date')) !!}
                       </div>
                   </div>
 
@@ -65,11 +65,12 @@
   </div>
 </div>
 <script>
-$(document).ready(function(){
-  $('.datepicker').datetimepicker({
-      format: 'dd-mm-YYYY'
-    });
-  });    
+$(document).ready(function() {
+  $("#date").datetimepicker({
+    format: 'Y-MM-D',
+  });
+});
+    
 </script>
 @endsection
 

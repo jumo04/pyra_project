@@ -13,7 +13,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-12 text-right">
-                  <a class="btn btn-primary" href="{{ route('users.index') }}"> Atras</a>
+                  <a class="btn btn-primary" href="{{ route('history.index') }}"> Atras</a>
                 </div>
               </div>
               @if (count($errors) > 0)
@@ -30,13 +30,13 @@
                  <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group">
                           <strong>Nombre:</strong>
-                          {!! Form::text('name', $lottery->name, array('placeholder' => 'Nombre','class' => 'form-control')) !!}
+                          {!! Form::text('name', $history->name, array('placeholder' => 'Nombre','class' => 'form-control')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group" >
                         <strong>Fecha de Cierre:</strong>
-                          {!! Form::text('close', $lottery->close, array('placeholder' => 'Fecha de cierre', 'class' => 'form-control datepicker')) !!}
+                          {!! Form::text('close', $history->close, array('placeholder' => 'Fecha de cierre', 'class' => 'form-control datepicker')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">
@@ -67,7 +67,7 @@
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group" >
                         <strong>Loteria: </strong>
-                         {!! Form::select('lottery_id', $lotteries, $history->lotteries()->name, array('class' => 'form-control')) !!}
+                         {!! Form::select('lottery_id', $lotteries, $history->lottery->id, array('class' => 'form-control')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12 text-center">

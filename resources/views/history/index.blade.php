@@ -34,6 +34,9 @@
                     <th>
                       Día
                     </th>
+                    <th>
+                      Loteria
+                    </th>
                     <th class="text-right">
                       Acciones
                     </th>
@@ -49,6 +52,9 @@
                       </td>
                       <td>
                       {{ $value-> day }}
+                      </td>
+                      <td>
+                       {{ $value ->lottery->name }}
                       </td>
                       <td>
                         @can('editar-historial')

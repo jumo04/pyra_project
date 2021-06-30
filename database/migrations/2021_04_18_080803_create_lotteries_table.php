@@ -19,6 +19,7 @@ class CreateLotteriesTable extends Migration
             $table->boolean('block')->default(false);
             $table->boolean('reblock')->default(false);
             $table->string('close')->nullable();
+            $table->unsignedBigInteger('history_id')->nullable();
             
 
             $table->timestamps();
