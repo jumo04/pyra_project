@@ -71,6 +71,10 @@ class UserController extends Controller
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
+        $place = Place::find($request->input('place_id'));
+        $user->place()->save($place);
+        $place->save();
+        $place->user()->save($user);
 
         return redirect()->route('users.index')->with('success','User creado exitosamente');
     }

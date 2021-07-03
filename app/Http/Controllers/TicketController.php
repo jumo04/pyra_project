@@ -61,14 +61,18 @@ class TicketController extends Controller
         ]);
 
         $val = $request->input('num');
-            if (!$this->ifBlock($val)) {
-                $composs = '';
-                foreach ($val as $value) {
-                    $composs = $composs . ' ' . $value;
-                }
-                return back()->with('error', 'Los números '. $composs . ' estan bloqueados');
-            };        
-
+        $composs = '';
+        $count = 0;
+        foreach ($val as $value) {
+           if (!$this->ifBlock($value)) {
+                $composs = $composs . ' ' . $value;
+                $count++;
+            }
+        };
+        if($count > 0){
+            return back()->with('error', 'Los números '. $composs . ' estan bloqueados');
+        }
+        
         $ticket = new Ticket();
         $ticket->name = $request->get('name');
         $ticket->num = $request->get('num');
@@ -116,19 +120,17 @@ class TicketController extends Controller
     public function ifBlock($request){
         
         $numbers = DB::table('numbers')->pluck('num')->toArray();
-        foreach ($request as $value) {
-            if (!in_array($value, $numbers)) {
-                
-            } else {
-                $number = Number::where('num', $value)->get()->first();
-                $prove = $number['block'];
-                if($prove == true){
-                    return false;
-                }else {
-                    return true;
+        if(!in_array($request, $numbers)) {
+             return true;
+        }else{
+            $number = Number::where('num', $request)->get()->first();
+            $prove = $number['block'];
+            if($prove == true){
+                   return false;
+            }else{
+                  return true;
                 }
             } 
-        } 
     }
 
     public function destroy($id)
@@ -136,7 +138,5 @@ class TicketController extends Controller
         DB::table("tickets")->where('id',$id)->delete();
         return redirect()->route('show_ticket')->with('success','Boleto eliminado exitosamente');
     }
-
-
 
 }
