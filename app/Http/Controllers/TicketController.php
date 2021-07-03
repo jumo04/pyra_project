@@ -84,12 +84,12 @@ class TicketController extends Controller
         $user->tickets()->save($ticket);
         $ticket->lotteries()->sync($lotteries);
 
-        $count_numbers = count($val) ;
+        $count_numbers = count($val);
         $count_nu = $count_numbers * count($lotteries);
         
         $div = $ticket['total'] / $count_nu ;
-
-
+        $div = ceil($div);
+        
         $this->storeNumber($val, $div);
 
         

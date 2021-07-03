@@ -101,6 +101,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/editar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'update'])->name('history.update');
 	Route::post('/eliminar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'destroy'])->name('history.destroy');
 	Route::post('/eliminar-rol/{id}', [App\Http\Controllers\RoleController::class, 'destroy'])->name('roles.destroy');
+	Route::post('/eliminar-usuario/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
 	Route::post('/eliminar-boleto/{id}', [App\Http\Controllers\TicketController::class, 'destroy'])->name('ticket.destroy');
 });
 
