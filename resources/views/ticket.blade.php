@@ -41,7 +41,7 @@
             @csrf
             <div class="form-group">
                 <label>Nombre:</label>
-                <input type="text" class="form-control" name="name" id="name" class="form-control">
+                <input type="text" class="form-control" name="name" id="name" class="form-control" require>
             </div>
 
             <div class="form-group">
@@ -78,8 +78,11 @@
                 <label>Total:</label>
                 <input type="number" class="form-control"  name="total" id="total">
             </div>
-
-            <input type="submit" name="send" value="Crear" class="btn btn-primary">
+            @if ($unique == true)
+                <input  type="button" name="" value="Ya se cerro el sistema" class="btn btn-primary">
+            @else
+                <input  type="submit" name="send" value="Crear" class="btn btn-primary">
+            @endif
         </form>
      </div>
     </div>  

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use App\Models\Number;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\DB;
@@ -34,8 +35,9 @@ class HomeController extends Controller
             $total_value = $value->total + $total_value;
         }
         $numbers = DB::select('select * from numbers');
+        $winners = History::orderBy('day', 'asc')->limit(4)->get();
         $total_tickets = count($tickets);
-        return view('dashboard', ['total_value' => $total_value, 'total_tickets' => $total_tickets]);
+        return view('dashboard', ['total_value' => $total_value, 'total_tickets' => $total_tickets, 'winners' => $winners ]);
     }
 
     public function delete_all()

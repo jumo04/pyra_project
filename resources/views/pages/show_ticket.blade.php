@@ -21,7 +21,8 @@
             </div>
             
             <div class="table-responsive">
-              <table class="table">
+              <table class="table" data-toggle="table" data-pagination="true"
+                 data-search="true">
                 <thead class="text-primary">
                   <th>
                     Nombre
@@ -29,10 +30,10 @@
                   <th>
                     Numeros
                   </th>
-                  <th>
+                  <th data-sortable="true">
                     Loteria
                   </th>
-                  <th>
+                  <th data-sortable="true">
                     Lugar
                   </th>
                   <th>

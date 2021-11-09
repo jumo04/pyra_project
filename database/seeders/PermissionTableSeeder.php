@@ -43,10 +43,12 @@ class PermissionTableSeeder extends Seeder
            'loteria-delete',
            'eliminar-todo',
            'eliminar-boleto',
-           'listar-boletos'
+           'listar-boletos',
+           'unico-listar',
+           'unico-crear',
+           'unico-editar'
         ]; 
 
-    
 
         foreach ($permissions as $permission) {
              Permission::create(['name' => $permission]);

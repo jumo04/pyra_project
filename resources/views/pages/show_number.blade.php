@@ -14,7 +14,8 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table">
+              <table data-toggle="table" data-pagination="true"
+                 data-search="true">
               @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
@@ -29,16 +30,16 @@
                   </h5>
                 </div>
                 <thead class=" text-primary">
-                  <th>
+                  <th data-sortable="true" >
                     Numero
                   </th>
                   <th>
                     Cuantos
                   </th>
-                  <th>
+                  <th data-sortable="true" >
                     Facturado
                   </th>
-                  <th>
+                  <th data-sortable="true" >
                     Bloqueado
                   </th>
                 </thead>
@@ -64,6 +65,7 @@
                     </tr>
                 @endforeach
                 </tbody>
+
               </table>
               {!! $numbers->render() !!}
 
@@ -74,4 +76,5 @@
     </div>
   </div>
 </div>
+
 @endsection

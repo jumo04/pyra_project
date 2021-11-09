@@ -52,9 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
 				[App\Http\Controllers\TicketController::class, 'show_ticket'
 					])->name('show_ticket');
 		
-	Route::get('/mostrar-numero', 
-				[App\Http\Controllers\TicketController::class, 'show_number'
-					])->name('show_number');
+	Route::get('mostrar-numero', [App\Http\Controllers\TicketController::class, 'show_number'])->name('show_number');
 
 	Route::get('icons', function () {
 		return view('pages.icons');
@@ -86,6 +84,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/editar-loteria/{id}', [App\Http\Controllers\LotteryController::class, 'update'])->name('lotteries.update');
 	Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
 	Route::get('/roles-mostrar/{id}', [App\Http\Controllers\RoleController::class, 'show'])->name('roles.show');
+	Route::get('/registro', [App\Http\Controllers\UniqueController::class, 'index'])->name('unique.index');
+	Route::get('/registro/{id}', [App\Http\Controllers\UniqueController::class, 'edit'])->name('unique.edit');
+	Route::post('/registro/{id}', [App\Http\Controllers\UniqueController::class, 'update'])->name('unique.update');
 	Route::get('/crear-rol', [App\Http\Controllers\RoleController::class, 'create'])->name('roles.create');
 	Route::get('/editar-rol/{id}', [App\Http\Controllers\RoleController::class, 'edit'])->name('roles.edit');
 	Route::post('/crear-rol', [App\Http\Controllers\RoleController::class, 'store'])->name('roles.store');

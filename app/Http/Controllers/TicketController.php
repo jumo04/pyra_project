@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lottery;
 use App\Models\Number;
+use App\Models\Unique;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Datatables;
+
 
 class TicketController extends Controller
 {
@@ -34,8 +36,11 @@ class TicketController extends Controller
 
     public function createForm(Request $request) {
         $lotteries = DB::select('select * from lotteries where block=false');
-        return view('ticket',  ['lot' => $lotteries]);
+        $unique = Unique::first();
+        return view('ticket',  ['lot' => $lotteries, 'unique' => $unique->block]);
+
       }
+    
 
     public function show_ticket(Request $request){
         $ticket = Ticket::all();
@@ -47,20 +52,25 @@ class TicketController extends Controller
         
         $nums = DB::table('numbers')->pluck('total')->toArray();
         $valor_total = array_sum($nums);
-        return view('pages.show_number', compact('numbers', 'valor_total'))
+        $block = $numbers->sortBy('block')->pluck('block')->unique();
+        return view('pages.show_number', compact('numbers', 'valor_total', 'block'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function TicketForm(Request $request) {
 
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'name' => 'required',
             'num',
             'lottery_id' => 'required',
             'total'=>'required',
-        ]);
+         ]);
+
 
         $val = $request->input('num');
+        if($val == null){
+            return back()->with('error', 'Los números ' . ' estan vacios');
+        }
         $composs = '';
         $count = 0;
         foreach ($val as $value) {

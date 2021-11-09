@@ -21,7 +21,6 @@ class CreateHistoriesTable extends Migration
             $table->string('total');
             $table->unsignedBigInteger('lottery_id')->nullable();
             $table->timestamps();
-
             $table->foreign('lottery_id')->references('id')->on('lotteries')->onDelete('cascade');
 
         });

@@ -77,5 +77,4 @@ class BlockNumberController extends Controller
          return redirect()->route('show_number')->with('success','El número se ha desbloqueado');
 
     }
-    
 }

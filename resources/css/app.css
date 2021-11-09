@@ -5,6 +5,7 @@
     font-family: sans-serif;
 }
 
+
 form {
     border: 1px solid #1A33FF;
     background: #ecf5fc;
@@ -32,3 +33,21 @@ label {
     border-color: red;
     padding: .375rem .75rem;
 }
+
+.animation {
+    width: 80%;
+    height: 10px;
+    position: relative;
+    animation: example 3s infinite;
+  }
+  
+  @keyframes example {
+    0%,
+    100% {
+      left: 0;
+    }
+  
+    50% {
+      left: 200px;
+    }
+  }
