@@ -38,7 +38,6 @@ class TicketController extends Controller
         $lotteries = DB::select('select * from lotteries where block=false');
         $unique = Unique::first();
         return view('ticket',  ['lot' => $lotteries, 'unique' => $unique->block]);
-
       }
     
 
