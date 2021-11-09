@@ -8,8 +8,12 @@
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title">Numero Jugados:</h4>
-            <a class="nav-link btn btn-success" href="{{ route('block') }}"> Bloquear </a>
-            <a class="nav-link btn btn-success " href="{{ route('deblock') }}"> Desbloquear</a>
+            @can('bloquear-numero')
+              <a class="nav-link btn btn-success" href="{{ route('block') }}"> Bloquear </a>
+            @endcan
+            @can('desbloquear-numero')
+              <a class="nav-link btn btn-success " href="{{ route('deblock') }}"> Desbloquear</a>
+            @endcan
             <p class="card-category"></p>
           </div>
           <div class="card-body">
@@ -68,7 +72,6 @@
 
               </table>
               {!! $numbers->render() !!}
-
             </div>
           </div>
         </div>

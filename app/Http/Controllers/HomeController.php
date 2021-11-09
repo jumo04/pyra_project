@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
+use App\Models\Lottery;
 use App\Models\Number;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,8 @@ class HomeController extends Controller
         $numbers = DB::select('select * from numbers');
         $winners = History::orderBy('day', 'asc')->limit(4)->get();
         $total_tickets = count($tickets);
-        return view('dashboard', ['total_value' => $total_value, 'total_tickets' => $total_tickets, 'winners' => $winners ]);
+        $lotteries = Lottery::where('block', false)->orderBy('name', 'asc')->get();
+        return view('dashboard', ['total_value' => $total_value, 'total_tickets' => $total_tickets, 'winners' => $winners , 'lotteries' => $lotteries]);
     }
 
     public function delete_all()
