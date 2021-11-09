@@ -10,9 +10,9 @@ class UniqueController extends Controller
     //
     function __construct()
     {
-         $this->middleware('permission:unique-listar|unique-crear|unique-editar', ['only' => ['index','show']]);
-         $this->middleware('permission:unique-crear', ['only' => ['create','store']]);
-         $this->middleware('permission:unique-editar', ['only' => ['edit','update']]);
+         $this->middleware('permission:unico-listar', ['only' => ['index']]);
+         $this->middleware('permission:unico-crear', ['only' => ['create','store']]);
+         $this->middleware('permission:unico-editar', ['only' => ['edit','update']]);
     }
 
     //
