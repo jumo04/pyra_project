@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
     {
         $user = User::create([
             'name' => 'Juan Fernando',
-            'email' => 'juan@gmail.com',
+            'email' => 'admin@gmail.com',
             'cedula' => '1017201121',
             'email_verified_at' => now(),
             'password' => Hash::make('12345678'),
