@@ -12,9 +12,11 @@
             </div>
             <div class="card-body">
               <div class="row">
+                @can('loteria-crear')
                <div class="col-12 text-right">
                   <a class="btn btn-sm btn-primary" href="{{ route('lotteries.create') }}">Crear Loteria</a>
-                </div> 
+                </div>
+                @endcan
               </div>
               <div class="table-responsive">
               @if ($message = Session::get('success'))
@@ -59,10 +61,11 @@
                         
                       </td>
                       <td>
-                      <td>
-                        <a class="btn btn-primary" href="{{ route('lotteries.edit',$value->id) }}">Editar</a>
-
+                        @can('loteria-editar')
+                        <td>
+                          <a class="btn btn-primary" href="{{ route('lotteries.edit',$value->id) }}">Editar</a>
                         </td>
+                        @endcan
                       </td>
                     </tr>
                 @endforeach 

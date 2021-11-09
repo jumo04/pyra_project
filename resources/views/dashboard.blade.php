@@ -10,7 +10,7 @@
           </div>
       @endif
       
-      @can('eliminar-todo')
+       @can('eliminar-todo')
         <div class="col-lg-12 col-md-12 col-sm-12">
           <div class="col-12 text-right">
             <a class="btn btn-sm btn-primary" href="{{ route('delete_all') }}">Eliminar Todo</a>
@@ -18,6 +18,10 @@
         </div>
         
         @endcan
+        <div class="col-12 text-right">
+         <a class="btn btn-primary btn-btn-per" href="{{ route('ticket.form') }}">Crear Boleto</a>
+        </div>
+
        
         <div class="container">
           <div class="row">
@@ -31,8 +35,8 @@
                                       <span class="widget-49-date-day">{{ explode('-', $value-> day)[2] }} </span>
                                       <span class="widget-49-date-month">{{ explode('-', $value-> day)[1]  }}</span>
                                   </div>
-                                  <div class="widget-49SANTANDER-meeting-info">
-                                      <span class="widget-49-pro-title">Ganador: {{$value-> winner }}</span>
+                                  <div class="widget-49-meeting-info">
+                                      <span class="widget-49-pro-title">Ganador: <label class="badge badge-success" style="font-size: 15px;"> {{$value-> winner }}</label></span>
                                       <br>  
                                       <span class="widget-49-meeting-time">Lotería: {{$value ->lottery->name  }}</span>
                                   </div>
