@@ -18,6 +18,10 @@
         </div>
         
         @endcan
+        <div class="col-12 text-left">
+        <label class="badge badge-danger" style="margin-right: 20px;font-size: 20px;">Hora de cierre: </label><label class="badge badge-danger redbag" style="margin-right: 20px;font-size: 20px;">{{ $unique->time }}</label>
+
+        </div>
         <div class="col-12 text-right">
          <a class="btn btn-primary btn-btn-per" href="{{ route('ticket.form') }}">Crear Boleto</a>
         </div>

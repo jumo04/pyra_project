@@ -18,21 +18,27 @@
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
-        .animation {
-            width: 80%;
-            height: 10px;
-            position: relative;
-            animation: example 2s infinite;
+        .redbag {
+            opacity: 0; 
+            animation: opacityOn 3s normal forwards;
+            animation-delay: 2s;
         }
-        
-        @keyframes example {
-            0%,
-            100% {
-            left: 0;
+
+        @keyframes opacityOn {
+            0% {
+                opacity: 1;
             }
-        
+            25% {
+                opacity: 0;
+            }
             50% {
-            left: 200px;
+                opacity: 1;
+            }
+            75% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
             }
         }
 

@@ -19,7 +19,7 @@ class UniqueController extends Controller
 
     public function index(Request $request)
     {
-        $unique = Unique::all();
+        $unique = Unique::fisrt();
         return view('closetime.index',compact('unique'));
 
     }
