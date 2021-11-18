@@ -19,9 +19,9 @@ class CreateHistoriesTable extends Migration
             $table->date('day')-> default(DB::raw('CURRENT_TIMESTAMP'));;
             $table->string('winner');
             $table->string('total');
-            $table->unsignedBigInteger('lottery_id')->nullable();
+            $table->string('total_count');
+            $table->string('lottery');
             $table->timestamps();
-            $table->foreign('lottery_id')->references('id')->on('lotteries')->onDelete('cascade');
 
         });
     }

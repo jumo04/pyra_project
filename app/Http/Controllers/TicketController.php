@@ -6,6 +6,8 @@ use App\Models\Number;
 use App\Models\Unique;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Lottery;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -86,9 +88,12 @@ class TicketController extends Controller
         $ticket->name = $request->get('name');
         $ticket->num = $request->get('num');
         $ticket->total = $request->get('total');
+        
         $lotteries = $request->get('lottery_id');
         $ticket->name = $request->get('name');
-        $ticket->save();
+        $ticket->created_at = now()->format('Y-m-d');
+        $ticket->updated_at = now()->format('Y-m-d');
+        $ticket ->save();
         $user = User::find(auth()->id());
         $user->tickets()->save($ticket);
         $ticket->lotteries()->sync($lotteries);
@@ -108,12 +113,12 @@ class TicketController extends Controller
 
     public function storeNumber($request, $div){
 
+        //revisar esto en pruebas a mayor cantidad de numeros
         $numbers = DB::table('numbers')->pluck('num')->toArray();
-
         foreach ($request as $value) {
-
             if (!in_array($value, $numbers)) {
                 $number = Number::create(['num' => $value, 'total' => $div, 'total_count' => 1]);
+                $number ->save();
                 Log::info('el número ha sido guardado'.$value);
             } else {
                 $number = Number::where('num', $value)->get()->first();

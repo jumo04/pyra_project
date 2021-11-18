@@ -98,6 +98,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/historial', [App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
 	Route::get('/crear-historial', [App\Http\Controllers\HistoryController::class, 'create'])->name('history.create');
 	Route::post('/crear-historial', [App\Http\Controllers\HistoryController::class, 'store'])->name('history.store');
+
+	Route::get('/numero-historial', [App\Http\Controllers\HistoryController::class, 'number'])->name('history.number');
+	Route::post('/numero-historial', [App\Http\Controllers\HistoryController::class, 'numberHistory'])->name('history.num');
 	Route::get('/editar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'edit'])->name('history.edit');
 	Route::post('/editar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'update'])->name('history.update');
 	Route::post('/eliminar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'destroy'])->name('history.destroy');

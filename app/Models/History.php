@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
-    public $fillable = ['day', 'winner', 'total', 'lottery_id'];
 
-    public function lottery(){ 
-        return $this->hasOne(Lottery::class);
-    }   
+    public $fillable = ['day', 'winner', 'total', 'total_count', 'lottery'];
+
 }

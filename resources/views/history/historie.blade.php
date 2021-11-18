@@ -16,7 +16,7 @@
                   <a class="btn btn-sm btn-primary" href="{{ route('history.create') }}">Crear historial</a>
                 </div> 
                 <div class="col-12 text-right">
-                  <a class="btn btn-sm btn-primary" href="{{ route('history.number') }}">Crear Historial de numero</a>
+                  <a class="btn btn-sm btn-primary" href="{{ route('history.number') }}">Crear Historial de Número</a>
                 </div>
               </div>
               <div class="table-responsive">
@@ -32,50 +32,51 @@
                       Ganador
                     </th>
                     <th>
-                      Total
+                      Total Jugado
                     </th>
                     <th>
-                      Día
+                      Total Boletos Jugado
                     </th>
                     <th>
-                      Loteria
+                      Fecha de Inicio
                     </th>
-                    <th class="text-right">
-                      Acciones
+                    <th>
+                      Fecha Final
+                    </th>
+                    <th>
+                      Loterias
                     </th>
                   </tr></thead>
                   <tbody>
-                  @foreach($histories as $value)
+                  @foreach ($results as $result)
                     <tr>
                       <td>
-                      {{ $value-> winner }}
+                      {{ $result['number'] }}
                       </td>
                       <td>
-                      {{ $value-> total }}
+                      {{ $result ['total_playing'] }}
                       </td>
                       <td>
-                      {{ $value-> day }}
+                      {{ $result ['total_plays'] }}
                       </td>
                       <td>
-                       {{$value -> lottery}}
+                      {{ $sdate}}
                       </td>
                       <td>
-                        @can('editar-historial')
-                          <a class="btn btn-primary" href="{{ route('history.edit',$value->id) }}">Editar</a>
-                        @endcan
-                        @can('eliminar-historial')
-                            {!! Form::open(['method' => 'POST','route' => ['history.destroy', $value->id],'style'=>'display:inline']) !!}
-                                  {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-                            {!! Form::close() !!}
-                        @endcan
+                      {{ $edate}}
+                      </td>
+                      <td>
+                       @foreach($result['lot'] as $val)
+                          <label class="badge badge-success" style="background-color: #12a69e;">{{ $val}}</label>
+                        @endforeach
+                      </td>
+                      <td>
                       </td>
                     </tr>
-                  @endforeach 
+                    @endforeach
                   </tbody>
                 </table>
               </div>
-
-              {!! $histories->render() !!}
             </div>
           </div>
       </div>
@@ -83,4 +84,3 @@
   </div>
 </div>
 @endsection
-

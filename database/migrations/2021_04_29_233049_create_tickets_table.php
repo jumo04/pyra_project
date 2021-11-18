@@ -19,7 +19,8 @@ class CreateTicketsTable extends Migration
             $table->text('num');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('total');
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
 
             $table->foreign('user_id')
                 ->references('id')

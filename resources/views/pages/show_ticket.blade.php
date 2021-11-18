@@ -36,6 +36,9 @@
                   <th data-sortable="true">
                     Lugar
                   </th>
+                  <th data-sortable="true">
+                    Día Jugado
+                  </th>
                   <th>
                     Valor
                   </th>
@@ -57,8 +60,12 @@
                           <label class="badge badge-success" style="background-color: #12a69e;">{{ $val->name }}</label>
                         @endforeach
                       </td>
+
                       <td>
-                       {{ $value->user->place->name}}
+                       
+                      </td>
+                      <td>
+                        {{ $value->created_at ->format('Y-m-d') }}
                       </td>
                       <td class="text-primary">
                       {{ $value->total }}

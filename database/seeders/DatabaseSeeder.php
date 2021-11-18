@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call([CreateAdminUserSeeder::class]);
         $this->call([UniqueSeeder::class]);
         $this->call([LotterySeeder::class]);
+        $this->call([TicketSeeder::class]);
     }
 }

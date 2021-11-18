@@ -16,6 +16,7 @@ class AddUserForeingKey extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
         });
+        
     }
 
     /**

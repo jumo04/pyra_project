@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\History;
 use App\Models\Lottery;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,10 +20,76 @@ class HistoryController extends Controller
     }
  */
     public function index(Request $request) {
-        $histories = History::orderBy('id','ASC')->paginate(5);
+        $histories = History::orderBy('id','ASC')->paginate(10);
         return view('history.index',compact('histories'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
       }
+
+
+    public function number(Request $request){
+        return view('history.number');
+    }
+
+    public function numberHistory(Request $request) {
+
+        $numbers = $request -> get('num');
+        $edate = $request -> get('edate');
+        $sdate = $request -> get('sdate');
+        $results = array();
+        foreach ($numbers as $number) {
+            $results [] = $this -> returnNumberHistory($number, $edate, $sdate);
+        }
+
+        return view('history.historie',compact('results', 'edate', 'sdate'));
+      }
+
+    public function returnNumberHistory($num, $edate, $sdate){
+
+        $number = $num;
+
+        $results = array();
+        $lot = array();
+        $tickets = Ticket::whereDate('created_at', '>=', $sdate)->whereDate('created_at', '<=', $edate)->get();
+        
+        foreach ($tickets as $ticket) {
+           $tnumbers = $ticket -> num;           
+           
+           if(in_array($number, $tnumbers)){
+            $results[] = $ticket;
+           } 
+        }
+
+        $total_plays = count($results);
+        $total_playing = 0;
+       
+
+        foreach ($results as $result) {
+
+            $lotteries = $result->lotteries()->pluck('name')->toArray();
+            
+            foreach ($lotteries as $lottery) {
+                if(!in_array($lottery, $lot)){
+                    $lot[] = $lottery;
+                } 
+            }
+            $val = $result -> get('num');
+            $total = $result['total'];
+            $count_numbers = count($val);
+            $count_nu = $count_numbers * count($lotteries);
+            
+            $div = $total / $count_nu ;
+            $div = ceil($div);
+            $total_playing = $total_playing + $div;
+        }
+
+        return [
+            'number' => $number,
+            'total_plays' => $total_plays,
+            'total_playing' =>  $total_playing,
+            'lot' =>  $lot
+        ];
+    }
+
 
     public function create()
     {
@@ -41,21 +108,51 @@ class HistoryController extends Controller
         // Form validation
         $this->validate($request, [
             'day'  => 'required',
-            'total' => 'required',
             'winner'  => 'required',
             'lottery_id' => 'required'
          ]);
 
         $history = new History();
-        
+        $day = $request->get('day');
+        $tickets = Ticket::whereDate('created_at', '=', $day)->get();
+        $results = array();
+        $lots = array();
+        foreach ($tickets as $ticket) {
+            $numbers = $ticket -> num;
+            if(in_array($request->get('winner'), $numbers)){
+             
+             $results[] = $ticket;
+            } 
+         }
+        $id = $request->input('lottery_id');
+        $lot = Lottery::where('id', $id)->pluck('name')[0];
+        $total_playing = 0;
+
+        foreach ($results as $result) {
+
+            $lotteries = $result->lotteries()->pluck('name')->toArray();
+            
+            if(in_array($lot, $lotteries)){
+                $val = $result-> getAttributes()['num'];
+                $total = $result['total'];
+                $count_numbers = count($val);
+                $count_nu = $count_numbers * count($lotteries);
+                $div = $total/ $count_nu ;
+                $div = ceil($div);
+                $total_playing = $total_playing + $div;
+                $lots[] = $result;
+            } 
+        }
+        $total_result = count($lots);
         $history->day = $request->get('day');
-        $history->total = $request->get('total');
+        $history->total = $total_playing;
+        $history->total_count = $total_result;
         $history->winner = $request->get('winner');
-        $lottery = Lottery::find($request->input('lottery_id'));
+        $id = $request->input('lottery_id');
+        $lottery = Lottery::find($id);
 
-        $history->save();
-        $history->lottery()->save($lottery);
-
+        $history->lottery = $lottery->name;
+        $history -> save();
         // 
         return redirect()->route('history.index')->with('success' , 'Historia creada con exito');
     }
