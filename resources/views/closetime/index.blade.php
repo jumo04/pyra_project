@@ -37,16 +37,15 @@
                     </th>
                   </tr></thead>
                   <tbody>
-                  @foreach($unique as $key => $value)
                     <tr>
                       <td>
                         1
                       </td>
                       <td>
-                      {{ $value-> time }}
+                      {{ $unique-> time }}
                       </td>
                       <td>
-                      @if( $value-> block == false)
+                      @if( $unique-> block == false)
                         No
                       @elseif ( $value-> block == true)
                         Si
@@ -62,7 +61,6 @@
                         </td>
                       </td>
                     </tr>
-                @endforeach 
                   </tbody>
                 </table>
               </div>

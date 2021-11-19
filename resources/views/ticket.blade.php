@@ -78,11 +78,9 @@
                 <label>Total:</label>
                 <input type="number" class="form-control"  name="total" id="total">
             </div>
-            @if ($unique == true)
-                <input  type="button" name="" value="Ya se cerro el sistema" class="btn btn-primary">
-            @else
+            
                 <input  type="submit" name="send" value="Crear" class="btn btn-primary">
-            @endif
+ 
         </form>
      </div>
     </div>  
