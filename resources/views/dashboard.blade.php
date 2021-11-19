@@ -22,8 +22,8 @@
         <label class="badge badge-danger" style="margin-right: 20px;font-size: 20px;">Hora de cierre: </label><label class="badge badge-danger redbag" style="margin-right: 20px;font-size: 20px;">{{ $unique->time }}</label>
 
         </div>
-        <div class="col-12 text-right">
-         <a class="btn btn-primary btn-btn-per" href="{{ route('ticket.form') }}">Crear Boleto</a>
+          <div class="col-12 text-right">
+          <a class="btn btn-primary btn-btn-per" href="{{ route('ticket.form') }}">Crear Boleto</a>
         </div>
 
        
@@ -42,6 +42,8 @@
                                   <div class="widget-49-meeting-info">
                                       <span class="widget-49-pro-title">Ganador: <label class="badge badge-success" style="font-size: 15px;"> {{$value-> winner }}</label></span>
                                       <br>  
+                                      <span class="widget-49-meeting-time">Lotería: {{$value -> total_count }}</span>
+                                      <br>
                                       <span class="widget-49-meeting-time">Lotería: {{$value ->lottery }}</span>
                                   </div>
                               </div>
