@@ -42,7 +42,7 @@
                                   <div class="widget-49-meeting-info">
                                       <span class="widget-49-pro-title">Ganador: <label class="badge badge-success" style="font-size: 15px;"> {{$value-> winner }}</label></span>
                                       <br>  
-                                      <span class="widget-49-meeting-time">Lotería: {{$value -> total_count }}</span>
+                                      <span class="widget-49-meeting-time">Cuantos: {{$value -> total_count }}</span>
                                       <br>
                                       <span class="widget-49-meeting-time">Lotería: {{$value ->lottery }}</span>
                                   </div>
