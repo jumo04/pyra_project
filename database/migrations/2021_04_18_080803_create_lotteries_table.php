@@ -16,7 +16,7 @@ class CreateLotteriesTable extends Migration
         Schema::create('lotteries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('block')->default(false);
+            $table->boolean('block')->default(true);
             $table->boolean('reblock')->default(false);
             $table->string('close')->nullable();
             $table->unsignedBigInteger('history_id')->nullable();

@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
     <style>
         .redbag {
-            opacity: 0; 
+            opacity: 0;
             animation: opacityOn 3s normal forwards;
             animation-delay: 2s;
         }
@@ -43,7 +43,7 @@
             }
         }
 
-       
+
         .card {
             border: 0;
             box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);

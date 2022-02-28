@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\HistoryController;
 
 
 /*
@@ -22,7 +25,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
@@ -30,8 +33,8 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('users', UserController::class);
-	Route::get('/boleto', [App\Http\Controllers\TicketController::class, 'createForm'])->name('ticket.form');
-    Route::post('/boleto', [App\Http\Controllers\TicketController::class, 'TicketForm'])->name('ticket.store');
+	Route::get('/boleto', [TicketController::class, 'createForm'])->name('ticket.form');
+    Route::post('/boleto', [TicketController::class, 'TicketForm'])->name('ticket.store');
 
     Route::post('/loterias', [App\Http\Controllers\LotteryController::class, 'store'])->name('lottery.store');
 
@@ -42,17 +45,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/historia', [App\Http\Controllers\HistoryController::class, 'HistoryForm'])->name('history.store');
 	Route::post('/bloqueo', [App\Http\Controllers\BlockNumberController::class, 'block_number'])->name('block');
     Route::post('/desbloqueo', [App\Http\Controllers\BlockNumberController::class, 'deblock_number'])->name('deblock');
-	
+
 	Route::get('/eliminar', [App\Http\Controllers\HomeController::class, 'delete_all'])->name('delete_all');
 
 	Route::get('/bloqueo', [App\Http\Controllers\BlockNumberController::class, 'block'])->name('block');
 	Route::get('/desbloqueo', [App\Http\Controllers\BlockNumberController::class, 'deblock'])->name('deblock');
 
-	Route::get('/mostrar-boleto', 
-				[App\Http\Controllers\TicketController::class, 'show_ticket'
-					])->name('show_ticket');
-		
-	Route::get('mostrar-numero', [App\Http\Controllers\TicketController::class, 'show_number'])->name('show_number');
+	Route::get('/mostrar-boleto', [TicketController::class, 'show_ticket'])->name('show_ticket');
+
+	Route::get('mostrar-numero', [TicketController::class, 'show_number'])->name('show_number');
 
 	Route::get('icons', function () {
 		return view('pages.icons');
@@ -98,7 +99,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/historial', [App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
 	Route::get('/crear-historial', [App\Http\Controllers\HistoryController::class, 'create'])->name('history.create');
 	Route::post('/crear-historial', [App\Http\Controllers\HistoryController::class, 'store'])->name('history.store');
-
+	Route::get('/dia', [HistoryController::class, 'days'])->name('history.days');
+	Route::post('/dia', [HistoryController::class, 'historyForDays'])->name('history.days');
+    Route::get('/fetch/{id}', [HistoryController::class, 'fetch'])->name('history.fetch');
 	Route::get('/numero-historial', [App\Http\Controllers\HistoryController::class, 'number'])->name('history.number');
 	Route::post('/numero-historial', [App\Http\Controllers\HistoryController::class, 'numberHistory'])->name('history.num');
 	Route::get('/editar-historial/{id}', [App\Http\Controllers\HistoryController::class, 'edit'])->name('history.edit');

@@ -82,12 +82,6 @@ class LotterySeeder extends Seeder
         ]);
 
         DB::table('lotteries')->insert([
-            'name' => 'BUCARAMANGA',
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        DB::table('lotteries')->insert([
             'name' => 'CUNDINAMARCA',
             'created_at' => now(),
             'updated_at' => now()

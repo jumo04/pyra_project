@@ -6,8 +6,9 @@ use App\Models\Number;
 use App\Models\Unique;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Num;
 use App\Models\Lottery;
-
+use App\Models\NumLottery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +18,7 @@ use Datatables;
 
 class TicketController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +42,7 @@ class TicketController extends Controller
         $unique = Unique::first();
         return view('ticket',  ['lot' => $lotteries, 'unique' => $unique->block]);
       }
-    
+
 
     public function show_ticket(Request $request){
         $ticket = Ticket::all();
@@ -50,7 +51,7 @@ class TicketController extends Controller
 
     public function show_number(Request $request){
         $numbers = Number::orderBy('id','ASC')->paginate(10);
-        
+
         $nums = DB::table('numbers')->pluck('total')->toArray();
         $valor_total = array_sum($nums);
         $block = $numbers->sortBy('block')->pluck('block')->unique();
@@ -83,12 +84,12 @@ class TicketController extends Controller
         if($count > 0){
             return back()->with('error', 'Los números '. $composs . ' estan bloqueados');
         }
-        
+
         $ticket = new Ticket();
         $ticket->name = $request->get('name');
         $ticket->num = $request->get('num');
         $ticket->total = $request->get('total');
-        
+
         $lotteries = $request->get('lottery_id');
         $ticket->name = $request->get('name');
         $ticket->created_at = now()->format('Y-m-d');
@@ -100,39 +101,92 @@ class TicketController extends Controller
 
         $count_numbers = count($val);
         $count_nu = $count_numbers * count($lotteries);
-        
+
         $div = $ticket['total'] / $count_nu ;
         $div = ceil($div);
-        
-        $this->storeNumber($val, $div);
 
-        
+        $this->storeNumber($val, $div, $lotteries);
+
+
         return back()->with('success', 'Se ha creado el boleto');
 
     }
 
-    public function storeNumber($request, $div){
-
-        //revisar esto en pruebas a mayor cantidad de numeros
-        $numbers = DB::table('numbers')->pluck('num')->toArray();
+    public function storeNumber($request, $div, $lotteries){
+        //revisar
         foreach ($request as $value) {
-            if (!in_array($value, $numbers)) {
+            $num = Num::where('num', $value)->get()->first();
+
+            if(is_null($num) ){
                 $number = Number::create(['num' => $value, 'total' => $div, 'total_count' => 1]);
-                $number ->save();
-                Log::info('el número ha sido guardado'.$value);
-            } else {
-                $number = Number::where('num', $value)->get()->first();
-                //dividir el precio por numero para agregarlo al numero y asi sumarlo
-                $number['total_count'] = $number['total_count'] + 1;
-                $number['total'] = $div + $number['total'];
-                $number->save();
-                Log::info('el numero ha sido actualizado'.$value);
-            } 
+                $num = Num::create(['num' => $value]);
+                foreach ($lotteries as $value) {
+                    $lottery = Lottery::find($value);
+                    $numlot = new NumLottery();
+                    $numlot -> total = $div;
+                    $numlot ->total_count = 1;
+                    // $numlot->num()->save($num);
+                    $numlot ->save();
+                    $lottery ->numlotteries()->save($numlot);
+                    $num ->numlotteries()->save($numlot);
+                    $numlot ->save();
+                }
+            }elseif(empty($num)) {
+                $number = Number::create(['num' => $value, 'total' => $div, 'total_count' => 1]);
+                $num = Num::create(['num' => $value]);
+                foreach ($lotteries as $value) {
+                    $lottery = Lottery::find($value);
+                    $numlot = new NumLottery();
+                    $numlot -> total = $div;
+                    $numlot ->total_count = 1;
+                    // $numlot->num()->save($num);
+                    $numlot ->save();
+                    $lottery ->numlotteries()->save($numlot);
+                    $num ->numlotteries()->save($numlot);
+                    $numlot ->save();
+
+                }
+            }else{
+                $today = date("Y-m-d");
+
+                foreach ($lotteries as  $value) {
+                    $lottery = Lottery::find($value);
+                    $numlot = $num->numlotteries()->where('lottery_id','=',$value)->whereDate('created_at', '=', $today)->first();
+                    if (is_null($numlot)) {
+                        $numlot = new NumLottery();
+                        $numlot -> total = $div;
+                        $numlot ->total_count = 1;
+                        // $numlot->num()->save($num);
+                        $numlot ->save();
+                        $lottery ->numlotteries()->save($numlot);
+                        $num ->numlotteries()->save($numlot);
+                        $numlot ->save();
+                    }elseif(empty($num)){
+                        $numlot = new NumLottery();
+                        $numlot -> total = $div;
+                        $numlot ->total_count = 1;
+                        // $numlot->num()->save($num);
+                        $numlot ->save();
+                        $lottery ->numlotteries()->save($numlot);
+                        $num ->numlotteries()->save($numlot);
+                        $numlot ->save();
+                    }else{
+                        $numlot = $num->numlotteries()->where('lottery_id','=',$value)->whereDate('created_at', '=', $today)->first();
+                        $numlot['total_count'] = $numlot['total_count'] + 1;
+                        $numlot['total'] = $div + $numlot['total'];
+                        $numlot ->save();
+                    }
+                    $number = Number::where('num', $num-> num)->get()->first();
+                    //dividir el precio por numero para agregarlo al numero y asi sumarlo
+                    $number['total_count'] = $number['total_count'] + 1;
+                    $number['total'] = $div + $number['total'];
+                    $number->save();
+                }
+            }
         }
     }
 
     public function ifBlock($request){
-        
         $numbers = DB::table('numbers')->pluck('num')->toArray();
         if(!in_array($request, $numbers)) {
              return true;
@@ -144,7 +198,7 @@ class TicketController extends Controller
             }else{
                   return true;
                 }
-            } 
+            }
     }
 
     public function destroy($id)

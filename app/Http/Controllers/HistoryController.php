@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\History;
 use App\Models\Lottery;
+use App\Models\NumLottery;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,33 +51,33 @@ class HistoryController extends Controller
         $results = array();
         $lot = array();
         $tickets = Ticket::whereDate('created_at', '>=', $sdate)->whereDate('created_at', '<=', $edate)->get();
-        
+
         foreach ($tickets as $ticket) {
-           $tnumbers = $ticket -> num;           
-           
+           $tnumbers = $ticket -> num;
+
            if(in_array($number, $tnumbers)){
             $results[] = $ticket;
-           } 
+           }
         }
 
         $total_plays = count($results);
         $total_playing = 0;
-       
+
 
         foreach ($results as $result) {
 
             $lotteries = $result->lotteries()->pluck('name')->toArray();
-            
+
             foreach ($lotteries as $lottery) {
                 if(!in_array($lottery, $lot)){
                     $lot[] = $lottery;
-                } 
+                }
             }
             $val = $result -> get('num');
             $total = $result['total'];
             $count_numbers = count($val);
             $count_nu = $count_numbers * count($lotteries);
-            
+
             $div = $total / $count_nu ;
             $div = ceil($div);
             $total_playing = $total_playing + $div;
@@ -96,7 +97,7 @@ class HistoryController extends Controller
         $lotteries = Lottery::pluck('name','id')->all();
         return view('history.create',compact('lotteries'));
     }
-  
+
 
     public function show($id) {
         $histories = History::find($id);
@@ -120,9 +121,9 @@ class HistoryController extends Controller
         foreach ($tickets as $ticket) {
             $numbers = $ticket -> num;
             if(in_array($request->get('winner'), $numbers)){
-             
+
              $results[] = $ticket;
-            } 
+            }
          }
         $id = $request->input('lottery_id');
         $lot = Lottery::where('id', $id)->pluck('name')[0];
@@ -131,7 +132,7 @@ class HistoryController extends Controller
         foreach ($results as $result) {
 
             $lotteries = $result->lotteries()->pluck('name')->toArray();
-            
+
             if(in_array($lot, $lotteries)){
                 $val = $result-> getAttributes()['num'];
                 $total = $result['total'];
@@ -141,7 +142,7 @@ class HistoryController extends Controller
                 $div = ceil($div);
                 $total_playing = $total_playing + $div;
                 $lots[] = $result;
-            } 
+            }
         }
         $total_result = count($lots);
         $history->day = $request->get('day');
@@ -153,7 +154,7 @@ class HistoryController extends Controller
 
         $history->lottery = $lottery->name;
         $history -> save();
-        // 
+        //
         return redirect()->route('history.index')->with('success' , 'Historia creada con exito');
     }
 
@@ -187,7 +188,7 @@ class HistoryController extends Controller
 
         $history->lottery()->save($lottery);
 
-        // 
+        //
         return redirect()->route('history.index')->with('success' , 'Historia creada con exito');
     }
 
@@ -197,6 +198,29 @@ class HistoryController extends Controller
         return redirect()->route('history.index')->with('success','historial eliminado exitosamente');
     }
 
+    public function days(Request $request){
+        return view('history.date');
+    }
+
+    public function historyForDays(Request $request){
+        $this->validate($request, ['day']);
+        $date = $request -> get('day');
+
+        $numlots = NumLottery::whereDate('created_at', '=', $date)->orderBy('num_id', 'ASC')->get();
+        $headers =['NUMEROS', 'MEDELLIN', 'BOGOTA', 'CRUZ ROJA', 'SINUANO', 'HUILA', 'CARIBEÑA', 'RISARALDA','QUINDIO', 'TOLIMA','CUNDINAMARCA','SANTANDER','BOYACA','CAUCA', 'TOTAL'];
+        return view('history.numbersfordays',compact('numlots', 'date', 'headers'));
+
+    }
+
+    public function fetch($date)
+    {
+        //revisar una vez entregado
+        $numlots = NumLottery::whereDate('created_at', '=', $date)->orderBy('num_id', 'ASC')->get();
+
+        return response()->json([
+            'numlots'=>$numlots,
+        ]);
+    }
 
 
 }

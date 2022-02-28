@@ -18,4 +18,9 @@ class Lottery extends Model
         return $this->belongsToMany(Ticket::class);
     }
 
+    //relacion uno a muchos inversa
+    public function numlotteries(){ 
+        return $this->hasMany('App\Models\NumLottery');
+    }
+
 }

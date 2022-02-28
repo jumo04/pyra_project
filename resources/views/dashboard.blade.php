@@ -15,9 +15,8 @@
           <div class="col-12 text-right">
             <a class="btn btn-sm btn-primary" href="{{ route('delete_all') }}">Eliminar Todo</a>
           </div>
-        </div>
-        
-        @endcan
+        </div> 
+       @endcan
         <div class="col-12 text-left">
         <label class="badge badge-danger" style="margin-right: 20px;font-size: 20px;">Hora de cierre: </label><label class="badge badge-danger redbag" style="margin-right: 20px;font-size: 20px;">{{ $unique->time }}</label>
 
