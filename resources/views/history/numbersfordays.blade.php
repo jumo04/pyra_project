@@ -1,4 +1,5 @@
-@extends('layouts.app', ['activePage' => 'hisory', 'titlePage' => __('Mostrar Historial')])
+@extends('layouts.app', ['activePage' => 'historyday', 'titlePage' => __('Mostrar Historial')])
+
 
 @section('content')
 <div class="content">

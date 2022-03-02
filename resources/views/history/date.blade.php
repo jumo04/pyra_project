@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'history', 'titlePage' => __('Crear Loteria')])
+@extends('layouts.app', ['activePage' => 'historyday', 'titlePage' => __('Crear Loteria')])
 
 @section('content')
 <div class="content">
@@ -50,6 +50,6 @@ $(document).ready(function() {
     format: 'Y-MM-D',
   });
 });
-    
+
 </script>
 @endsection

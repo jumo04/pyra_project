@@ -8,7 +8,7 @@
     <a href="#" class="simple-text logo-normal" style="letter-spacing: 10px;">
       {{ __('P Y R A') }}
     </a>
-  </div>  
+  </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
       <li class="nav-item{{ $activePage  == 'dashboard' ? ' active' : '' }}">
@@ -49,7 +49,7 @@
         </a>
       </li>
       @endcan
-      @can('listar-boletos') 
+      @can('listar-boletos')
       <li class="nav-item{{ $activePage  == 'show_ticket' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('show_ticket') }}">
           <i class="material-icons">local_play</i>
@@ -62,6 +62,14 @@
         <a class="nav-link" href="{{ route('history.index') }}">
           <i class="material-icons">radio_button_checked</i>
             <p>{{ __('Historial') }}</p>
+        </a>
+      </li>
+      @endcan
+      @can('listar-numeros')
+      <li class="nav-item{{ $activePage   == 'historyday' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('history.days') }}">
+          <i class="material-icons">format_list_numbered</i>
+            <p>{{ __('Día') }}</p>
         </a>
       </li>
       @endcan

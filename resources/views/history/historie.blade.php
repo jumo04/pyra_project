@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'histor', 'titlePage' => __('Historial')])
+@extends('layouts.app', ['activePage' => 'histories', 'titlePage' => __('Historial')])
 
 @section('content')
 <div class="content">
@@ -14,7 +14,7 @@
               <div class="row">
                <div class="col-12 text-right">
                   <a class="btn btn-sm btn-primary" href="{{ route('history.create') }}">Crear historial</a>
-                </div> 
+                </div>
                 <div class="col-12 text-right">
                   <a class="btn btn-sm btn-primary" href="{{ route('history.number') }}">Crear Historial de Número</a>
                 </div>
