@@ -69,7 +69,7 @@
                 <label>Lugar:</label>
                 <select style="display:none;" name="place_id" id="listselect" class="form-control">
                     <option value="{{ auth()->user()->place['id']}}">{{ auth()->user()->place['name'] }}</option>
-                    
+
                 </select>
                 <label>{{ auth()->user()->place['name'] }}</label>
             </div>
@@ -78,15 +78,13 @@
                 <label>Total:</label>
                 <input type="number" class="form-control"  name="total" id="total">
             </div>
-            @if ($unique == true)
-                <input  type="button" name="" value="Ya se cerro el sistema" class="btn btn-primary">
-            @else
+
+
                 <input  type="submit" name="send" value="Crear" class="btn btn-primary">
-            @endif
         </form>
      </div>
-    </div>  
-    </div>  
+    </div>
+    </div>
   </div>
  </div>
 </div>
@@ -96,14 +94,14 @@
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div><input class="form-control" type="string" name="num[]" value=""  onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" /><a href="javascript:void(0);" class="remove_button"><i class="material-icons">remove</i></a></div>'; //New input field html 
+        var fieldHTML = '<div><input class="form-control" type="string" name="num[]" value=""  onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" /><a href="javascript:void(0);" class="remove_button"><i class="material-icons">remove</i></a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
 
-        
+
         //Once add button is clicked
         $(addButton).click(function(){
             //Check maximum number of input fields
-            if(x < maxField){ 
+            if(x < maxField){
                 x++; //Increment field counter
                 $(wrapper).append(fieldHTML); //Add field html
             }
