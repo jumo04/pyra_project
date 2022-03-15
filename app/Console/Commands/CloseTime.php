@@ -40,13 +40,17 @@ class CloseTime extends Command
     public function handle()
     {
         $unique = Unique::first();
-        date_default_timezone_set("GMT"); 
+        date_default_timezone_set("GMT");
         if (strtotime($unique->time) <= (time()-60*60 *5)) {
             $unique->block = true;
+            $unique->save();
+            $this->info('Se coloco la hora de cierre en verdadero');
+        }else{
+            $unique->block = false;
             $unique->save();
             $this->info('Se coloco la hora de cierre en verdadero');
         }
         $this->info('paso por acá');
 
-    }   
+    }
 }
