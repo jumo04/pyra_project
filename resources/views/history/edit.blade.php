@@ -26,23 +26,12 @@
                   </ul>
                 </div>
               @endif
-              {!! Form::model($history, ['method' => 'POST','route' => ['history.update', $history->id]]) !!}              
+              {!! Form::model($history, ['method' => 'POST','route' => ['history.update', $history->id]]) !!}
+              <div>
                  <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group">
                           <strong>Nombre:</strong>
                           {!! Form::text('name', $history->name, array('placeholder' => 'Nombre','class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group" >
-                        <strong>Fecha de Cierre:</strong>
-                          {!! Form::text('close', $history->close, array('placeholder' => 'Fecha de cierre', 'class' => 'form-control datepicker')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <strong>Bloquear:</strong>
-                          <label>{{ Form::checkbox('block', null, false ) }}</label>
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">
@@ -67,7 +56,7 @@
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group" >
                         <strong>Loteria: </strong>
-                         {!! Form::select('lottery_id', $lotteries, $history->lottery->id, array('class' => 'form-control')) !!}
+                         {!! Form::select('lottery_id', $lotteries, $lottery, array('class' => 'form-control')) !!}
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12 text-center">

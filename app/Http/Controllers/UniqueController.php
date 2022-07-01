@@ -37,17 +37,17 @@ class UniqueController extends Controller
 
         Unique::create($request->all());
 
-        // 
+        //
         return back()->with('success');
     }
 
     public function edit($id)
-    {   
+    {
         $unique = Unique::find($id);
         return view('closetime.edit', compact('unique'));
     }
 
-    
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -62,5 +62,5 @@ class UniqueController extends Controller
         return redirect()->route('unique.index')->with('success','Registro actualizado');
     }
 
-    
+
 }

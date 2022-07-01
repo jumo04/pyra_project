@@ -47,7 +47,7 @@
                       <td>
                       @if( $unique-> block == false)
                         No
-                      @elseif ( $value-> block == true)
+                      @elseif ( $unique-> block == true)
                         Si
                       @endif
                       </td>
@@ -56,7 +56,7 @@
                       </td>
                       <td>
                       <td>
-                        <a class="btn btn-primary" href="{{ route('unique.edit',$value->id) }}">Editar</a>
+                        <a class="btn btn-primary" href="{{ route('unique.edit',$unique->id) }}">Editar</a>
 
                         </td>
                       </td>

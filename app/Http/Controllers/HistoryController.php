@@ -5,6 +5,7 @@ use App\Models\History;
 use App\Models\Lottery;
 use App\Models\NumLottery;
 use App\Models\Ticket;
+use FontLib\Table\Type\name;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -151,9 +152,8 @@ class HistoryController extends Controller
         $history->winner = $request->get('winner');
         $id = $request->input('lottery_id');
         $lottery = Lottery::find($id);
-
         $history->lottery = $lottery->name;
-        $history -> save();
+        $history->save();
         //
         return redirect()->route('history.index')->with('success' , 'Historia creada con exito');
     }
@@ -161,8 +161,9 @@ class HistoryController extends Controller
     public function edit(Request $request, $id) {
         $history = History::find($id);
         $lotteries = Lottery::pluck('name','id')->all();
-
-        return view('history.edit', compact('history', 'lotteries'));
+        $name = $history->lottery;
+        $lottery = Lottery::where('name', $name)->get()->toArray()[0]['id'];
+        return view('history.edit', compact('history', 'lotteries', 'lottery'));
       }
 
     public function update(Request $request, $id) {

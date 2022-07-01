@@ -26,10 +26,10 @@
                   </ul>
                 </div>
               @endif
-              {!! Form::model($unique, ['method' => 'POST','route' => ['unique.update', $unique->id]]) !!}              
+              {!! Form::model($unique, ['method' => 'POST','route' => ['unique.update', $unique->id]]) !!}
                   <div class="col-xs-12 col-sm-12 col-md-12">
                       <div class="form-group" >
-                        <strong>Fecha de Cierre:</strong>
+                        <strong>Hora de Cierre:</strong>
                           {!! Form::text('time', $unique->time, array('placeholder' => 'Hora de cierre','class' => 'form-control datepicker')) !!}
                       </div>
                   </div>
@@ -45,14 +45,4 @@
   </div>
 </div>
 
-<script>
-  $('document').ready(function(){
-    $('.datepicker').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es",
-        autoclose: true
-    });
-  });
-    
-</script>
 @endsection
