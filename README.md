@@ -1,27 +1,15 @@
 
-# README #
-Aplicacion
+# Pyra #
 
-### What is this repository for? ###
+Porjecto pyra fue un oprojecto propio inspirado para sacar la contabilidad de una loteria, cuando se esta facutrando y los numeros que mas repercuten
+asi como un contador diario de que numeros se hacen cuantas veces y cuanto se ha hecho cada numero en cuanto a precio
 
-* Quick summary
 
-### How do I get set up? ###
+### ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Laravel 8
+* php
+* mysql
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Este es un respaldo del projecto original que estare modificando.
